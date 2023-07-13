@@ -1,0 +1,288 @@
+.Hvae38 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+  font-size: 0.875rem;
+}
+
+.b7wtmP {
+  padding: 0 1.875rem 0.625rem;
+}
+
+._66hYBa {
+  border-bottom: 0.0625rem solid #efefef;
+  padding: 1.125rem 0;
+}
+
+.SbCTde {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  text-transform: capitalize;
+  color: #333;
+}
+
+.zptdmA {
+  margin-top: 0.1875rem;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: #555;
+}
+
+.R-Gpdg {
+  padding-top: 1.875rem;
+}
+.R-Gpdg {
+  flex-direction: row;
+}
+.R-Gpdg {
+  display: flex;
+}
+.R-Gpdg {
+  align-items: flex-start;
+}
+
+.volt8A {
+  flex: 1;
+  padding-right: 3.125rem;
+}
+form {
+  display: block;
+  margin-top: 0em;
+}
+
+.Zj7UK\+ {
+  width: 602px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table {
+  display: table;
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: gray;
+}
+
+table > tr {
+  vertical-align: middle;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.qQTY0O {
+  padding-bottom: 54px;
+}
+
+.espR83 {
+  text-align: right;
+  color: rgba(85, 85, 85, 0.8);
+  overflow: hidden;
+  padding-bottom: 30px;
+  white-space: nowrap;
+  min-width: 20%;
+}
+
+.Tmj5Z6 {
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-bottom: 30px;
+}
+
+.W50dp5 {
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 2px;
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.bp2tsO {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.bp2tsO,
+.d\+SUXj {
+  margin: 0;
+  padding: 4px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.CMyrTJ {
+  background: none;
+  padding: 12px;
+  outline: none;
+  border: 0;
+  flex: 1;
+  flex-shrink: 0;
+  filter: none;
+}
+
+._0ZgK9X {
+  align-items: center;
+  display: flex;
+}
+
+.uxYEXm {
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.DJRxAF {
+  border: 0;
+  outline: none;
+  background: none;
+  color: #05a;
+  font-size: 0.8125rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.s4eg4A .stardust-radio-group {
+  display: flex;
+}
+
+.s4eg4A .stardust-radio {
+  padding: 0;
+  margin-right: 0.75rem;
+}
+
+.ewT4Cd {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ewT4Cd .shopee-dropdown {
+  width: 32%;
+  display: flex;
+}
+.shopee-dropdown {
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.shopee-dropdown--opened .shopee-dropdown__entry--selected {
+  border-color: #041e3a;
+}
+
+.shopee-dropdown--has-selected .shopee-dropdown__entry--selected {
+  color: rgba(0, 0, 0, 0.8);
+}
+.shopee-dropdown__entry--selected {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 2px;
+  height: 2.5rem;
+  background: #fff;
+  color: #bbb;
+}
+.shopee-dropdown__entry {
+  display: flex;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0 0.9375rem;
+}
+
+.shopee-dropdown__entry span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.shopee-dropdown .shopee-popover {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  background: #fff;
+  max-height: 8.375rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0.3125rem 0;
+}
+
+.shopee-dropdown__entry--selected:hover {
+  border-color: #041e3a;
+}
+
+.shopee-dropdown__options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shopee-dropdown__entry .shopee-svg-icon {
+  margin-left: 0.3125rem;
+  font-size: 0.75rem;
+}
+
+.ewT4Cd .shopee-dropdown__entry {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.shopee-dropdown__entry--optional {
+  padding-top: 0.3125rem !important;
+  padding-bottom: 0.3125rem !important;
+}
+.shopee-dropdown__entry {
+  display: flex;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0 0.9375rem;
+}
+
+.shopee-popover--default {
+  max-height: 8.375rem;
+  padding: 0.3125rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.shopee-dropdown__entry--optional:hover {
+  color: #041e3a;
+}
+
+.btn-solid-primary {
+  color: #fff;
+  position: relative;
+  overflow: visible;
+  outline: 0;
+  background: #041e3a;
+}
+.btn--m {
+  height: 40px;
+  padding: 0 20px;
+  min-width: 70px;
+  max-width: 220px;
+}
+.btn--inline {
+  display: inline-flex;
+}

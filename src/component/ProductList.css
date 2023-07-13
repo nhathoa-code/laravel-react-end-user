@@ -1,0 +1,293 @@
+.product-list-container {
+  display: flex;
+}
+
+.product-list-container #filter-bar {
+  width: 25%;
+}
+
+.product-list-container #filter-bar h3 {
+  font-weight: normal !important;
+}
+
+.product-list-container .VQRLw- {
+  cursor: pointer;
+}
+
+.product-list-container #filter-bar .tcK1ox::before {
+  display: none;
+}
+
+.product-list-container #filter-bar .QZTonY::before {
+  display: block;
+}
+
+.product-list-container #list-product {
+  position: relative;
+  /* display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-grow: 1; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+/* .product-list-container #list-product .product-info-container {
+  width: 32%;
+  height: fit-content;
+  margin-bottom: 15px;
+} */
+
+/* .product-list-container
+  #list-product
+  .product-info-container:not(:nth-of-type(3n)) {
+  margin-right: 2%;
+} */
+
+/*========== copy headbox from fptshop =========*/
+.product-list-container .m-b-30 {
+  margin-bottom: 30px;
+}
+
+.product-list-container .card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  -webkit-box-shadow: 0 0 3px 0 #dee2e6;
+  box-shadow: 0 0 3px 0 #dee2e6;
+  border-radius: 6px;
+}
+
+.product-list-container .fpheadbox .card-header {
+  border-bottom: none;
+}
+.product-list-container .card-header:first-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.product-list-container .card-header {
+  padding: 15px;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-radius: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.product-list-container .cdt-head__title {
+  display: inline;
+  vertical-align: bottom;
+  font-size: 28px;
+  line-height: 28px;
+  color: #212529;
+  margin-bottom: 0;
+}
+
+.product-list-container .cdt-head span {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.product-list-container .cdt-list-tag {
+  margin-top: -2px;
+  padding: 0 15px 15px;
+  overflow: hidden;
+}
+
+.product-list-container .cdt-list-tag span:first-child {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #495057;
+}
+
+.product-list-container .cdt-list-tag a {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 23px;
+  line-height: 23px;
+  font-size: 12px;
+  padding: 0 8px 0 8px;
+  color: #8392a5;
+  border: solid 1px #b4bdce;
+  margin: 0 10px 6px 0;
+  cursor: pointer;
+}
+
+.product-list-container .cdt-list-tag a h2 {
+  color: #8392a5;
+}
+
+.product-list-container .cdt-list-tag a:hover {
+  border-color: #9f6c36;
+  color: #9f6c36;
+}
+
+.product-list-container .cdt-list-tag a:hover h2 {
+  color: #9f6c36;
+}
+
+.product-list-container .cdt-list-tag a h2 {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: normal;
+  padding-bottom: 1px;
+}
+
+.product-list-container .cdt-list-tag a i {
+  font-size: 10px;
+  display: inline-block;
+  position: relative;
+  padding-left: 4px;
+}
+
+.product-list-container .icon-cancel:before {
+  content: "\f00d";
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 900;
+}
+
+/*====== copy brands filter from cellphones ======*/
+.block-filter-brands .brands__content {
+  overflow-x: auto;
+}
+
+.block-filter-brands .brands__content .list-brand {
+  display: flex;
+  flex-wrap: wrap;
+}
+.block-filter-brands .brands__content .list-brand__item {
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  margin: 0 10px 10px 0;
+  padding: 5px 10px;
+}
+.block-filter-brands .brands__content .list-brand__item img {
+  height: 20px;
+  max-width: none;
+}
+
+.block-filter-brands {
+  padding: 0 15px 15px 15px;
+}
+
+.brand-choosen {
+  border: 1px solid #9f6c36 !important;
+}
+
+/*========== copy breadcrum from fptshop ==========*/
+
+.breadcrumb-container {
+  /* position: sticky;
+  top: 91px; */
+  width: 100%;
+  margin: 0 !important;
+}
+
+.breadcrumb-margin {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  align-items: center;
+}
+
+ol {
+  list-style: none;
+}
+
+.breadcrumb-item {
+  color: #0275d8;
+  line-height: 1;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item a {
+  position: relative;
+}
+.breadcrumb-item a {
+  font-size: 14px;
+  line-height: 1;
+  color: #0275d8;
+}
+
+.breadcrumb-item:last-child {
+  color: #6c757d;
+}
+
+.breadcrumb-item:last-child {
+  color: #212529;
+}
+
+.breadcrumb-item + .breadcrumb-item:before {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: #ccc;
+  font-size: 20px;
+  content: "/";
+}
+
+.breadcrumb-item.active {
+  display: flex;
+  align-items: center;
+}
+
+.view_more > div {
+  text-align: center;
+  margin: 5vw 0;
+}
+.view_more > div > .view-btn > button {
+  width: 154.77px;
+  border: 1px solid #041e3a;
+  color: #041e3a;
+  font-size: 0.75rem;
+  background-color: transparent;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-family: Founders Grotesk Mono Regular, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.4s;
+  border-radius: 5px;
+}
+.view_more > div > .view-btn > button:hover {
+  background-color: #041e3a;
+  color: white;
+}
+.view-btn a {
+  color: #474747;
+  font-size: small;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#results-hits {
+  color: #6d6f73;
+  font-size: 0.8rem;
+}

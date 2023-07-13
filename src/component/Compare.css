@@ -1,0 +1,124 @@
+form.compare-form {
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+}
+
+form.compare-form input {
+  border-radius: 5px;
+}
+
+#products-to-compare {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+#products-to-compare > .product-info-container {
+  width: 20%;
+}
+
+#products-to-compare > .product-info-container {
+  position: relative;
+}
+
+#products-to-compare > .product-info-container > span.compare-remove {
+  position: absolute;
+  cursor: pointer;
+  top: 7px;
+  right: 7px;
+  width: 20px;
+  height: 20px;
+  background-color: #041e3a;
+  border-radius: 50%;
+}
+
+#products-to-compare > .product-info-container > span.compare-remove:hover {
+  opacity: 0.8;
+}
+
+#products-to-compare > .product-info-container > span.compare-remove::before {
+  content: "\00d7";
+  position: absolute;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#products-to-compare span.compare-vs {
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+form.compare-form #search_autocomplete_compare {
+  display: none;
+  position: absolute;
+  z-index: 9;
+  border-radius: 5px;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  min-height: 150px;
+  max-height: 550px;
+  background-color: #fff;
+  /* overflow-y: scroll; */
+}
+
+.compare {
+  margin: 30px 0;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0 3px 6px #00000029;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.compare table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.compare tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.compare tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.compare table .specs-group th {
+  font-weight: bold;
+  color: #fff;
+  background: #041e3a;
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.compare table td,
+.compare table th {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+
+.compare img {
+  width: 50%;
+  height: auto;
+}
+
+.compare table .specs div.image {
+  text-align: center;
+}
+
+.compare table .specs .text {
+  text-align: center;
+  vertical-align: middle;
+}

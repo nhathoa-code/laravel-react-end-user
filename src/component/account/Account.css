@@ -1,0 +1,28 @@
+.account_container {
+  width: 1200px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.account_container #sidebar {
+  width: 25%;
+  margin-right: 2%;
+}
+
+.account_container #content {
+  flex: 1;
+  padding: 1.25rem;
+  margin-right: 2%;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+  position: relative;
+}
+
+.account_container #sidebar .MuiList-root {
+  background-color: transparent !important;
+}
+
+.account_container a {
+  color: rgba(0, 0, 0, 0.87);
+}

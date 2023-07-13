@@ -1,0 +1,86 @@
+/*====== copy from shopee ======*/
+.coOw9l {
+  margin-top: 16px;
+}
+
+.TMCf0u {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.LUGhvJ:nth-child(odd) {
+  padding-right: 10px;
+}
+.LUGhvJ {
+  width: 50%;
+  margin-bottom: 20px;
+  height: 118px;
+  box-sizing: border-box;
+}
+
+.d6WhVp {
+  height: 100%;
+  position: relative;
+}
+
+.vc_my-wallet-page-vouchers_freeSnippingVoucher {
+  --vc-icon-text-color: #fff;
+  --vc-card-left-border-color: #00bfa5;
+  --vc-card-left-fill-color: #00bfa5;
+  --vc-card-right-border-color: #e8e8e8;
+  --vc-card-background-color: #fff;
+  --vc-main-title-font-size: toRem(16px);
+  --vc-main-title-line-height: toRem(20px);
+}
+
+.vc_my-wallet-page-vouchers_shopeeVoucher {
+  --vc-icon-text-color: #fff;
+  --vc-card-left-border-color: #041e3a;
+  --vc-card-left-fill-color: #041e3a;
+  --vc-card-right-border-color: #e8e8e8;
+  --vc-card-background-color: #fff;
+}
+
+.vc_CornerBadge_valid {
+  background-color: var(--vc-corner-badge-bg-color, #eda500);
+}
+.vc_CornerBadge_levelCorner {
+  left: -0.25rem;
+  top: 0.3125rem;
+}
+.vc_CornerBadge_cornerBadge {
+  border-radius: 0.125rem 0.125rem 0.125rem 0;
+  color: #fff;
+  display: flex;
+  font-size: var(--vc-corner-badge-font-size, 0.625rem);
+  line-height: var(--vc-corner-badge-line-height, 0.75rem);
+  padding: var(--vc-corner-badge-padding, 0.125rem 0.25rem);
+  position: absolute;
+}
+
+.vc_TNCLink_tncLink > a {
+  color: #508be3 !important;
+  text-decoration: none;
+}
+
+.vc_UseLink_link {
+  color: #041e3a !important;
+  font-size: 0.875rem;
+  margin-right: 0.75rem;
+  position: relative;
+  text-decoration: none;
+}
+
+.vc_UseLink_link:after {
+  border: solid #041e3a;
+  border-width: 0 1px 1px 0;
+  bottom: 0.0625rem;
+  content: "";
+  display: block;
+  margin-left: 0.3125rem;
+  padding: 0.2125rem;
+  position: absolute;
+  right: -0.625rem;
+  transform: rotate(-45deg);
+  transform-origin: 0 50%;
+}

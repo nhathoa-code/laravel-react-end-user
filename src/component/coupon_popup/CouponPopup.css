@@ -1,0 +1,649 @@
+/*========= copy coupons popup from shopee =========*/
+
+.shopee-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 600;
+}
+
+.shopee-popup__overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.shopee-popup__container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.oS7fgU {
+  width: 38.5rem !important;
+  height: 38.5rem;
+}
+.shopee-popup-form {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  border-radius: 3px;
+  width: 500px;
+  max-width: 100%;
+  padding: 30px 30px 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+.oS7fgU .shopee-popup-form__main {
+  margin-left: -0.25rem;
+  padding-left: 0.25rem;
+}
+
+.shopee-popup-form__main {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  padding-right: 50px;
+  margin-right: -50px;
+  padding-left: 50px;
+  margin-left: -50px;
+  position: relative;
+}
+
+.iF8vqN span {
+  color: rgb(142, 142, 142);
+  font-size: 0.875rem;
+}
+
+.y5uClx {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0px;
+  padding-bottom: 4rem;
+}
+
+.lUl\+ps {
+  display: flex;
+  padding: 0.9375rem;
+  align-items: center;
+  background: rgb(248, 248, 248);
+}
+
+.lUl\+ps .FTPbu3 {
+  flex-shrink: 0;
+  text-transform: capitalize;
+  margin-right: 0.6875rem;
+}
+
+.lUl\+ps .CxgDW8.Bb4\+ox {
+  color: rgb(204, 204, 204);
+}
+.lUl\+ps .CxgDW8.CxgDW8 {
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+  width: 5.875rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.lUl\+ps ._5sgxMq {
+  flex: 1 1 0%;
+}
+
+.lUl\+ps .input-with-validator-wrapper {
+  position: relative;
+}
+
+.input-with-validator {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  position: relative;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 2px 0px 0px inset;
+  color: rgb(34, 34, 34);
+  height: 40px;
+  padding: 10px;
+  transition: border-color 0.1s ease 0s;
+}
+
+.lUl\+ps .input-with-validator > input {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.input-with-validator input {
+  flex: 1 1 0%;
+  font-size: 14px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: 0px;
+}
+
+.u6HdhE.d9WDAK {
+  position: relative;
+  padding-bottom: 2.8125rem;
+}
+
+.u6HdhE {
+  margin-left: -0.25rem;
+  padding-left: 0.25rem;
+  overflow: auto;
+  position: relative;
+  padding-right: 1.25rem;
+  margin-top: 1.25rem;
+  width: 100%;
+  height: 100%;
+}
+
+.iF8vqN.BzObne {
+  color: rgba(0, 0, 0, 0.87);
+}
+.A3W8C5 {
+  display: flex;
+  flex-direction: column;
+}
+.iF8vqN {
+  margin-bottom: 0.625rem;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: space-between;
+}
+
+.vc_Card_card {
+  height: var(--vc-card-height, 7.375rem);
+  position: relative;
+}
+
+.vc_free-shipping-voucher_pc {
+  --vc-logo-size: 3.5rem;
+  --vc-expiry-font-size: 0.75rem;
+  --vc-expiry-line-height: 0.875rem;
+  --vc-expiry-margin-top: 0.25rem;
+  --vc-main-title-font-size: 0.875rem;
+  --vc-main-title-line-height: 1rem;
+  --vc-product-scope-font-size: 0.75rem;
+  --vc-product-scope-line-height: 0.875rem;
+  --vc-product-scope-padding: 0.0625rem 0.25rem;
+  --vc-icon-text-font-size: 0.75rem;
+  --vc-icon-text-line-height: 0.875rem;
+  --vc-icon-text-max-height: 1.75rem;
+  --vc-icon-text-margin-top: 0.25rem;
+  --vc-radio-button-border: 0.0625rem solid rgba(0, 0, 0, 0.14);
+  --vc-radio-button-box-shadow: var(--black2) 0 0.125rem 0 0;
+  --vc-card-width: auto;
+  margin-bottom: 15px;
+}
+
+.vc_Card_fsv {
+  --vc-card-left-border-color: #00bfa5;
+  --vc-card-left-fill-color: #00bfa5;
+  --vc-card-right-border-color: #e8e8e8;
+  --vc-card-background-color: #fff;
+}
+
+.vc_Card_inapplicable .vc_Card_left {
+  opacity: 0.5;
+}
+
+.vc_VoucherStandardTemplate_inapplicable.vc_VoucherStandardTemplate_fsv
+  .vc_VoucherStandardTemplate_middle {
+  opacity: 0.5;
+}
+
+.vc_VoucherStandardTemplate_inapplicable.vc_VoucherStandardTemplate_shopee
+  .vc_VoucherStandardTemplate_middle {
+  opacity: 0.5;
+}
+
+.vc_Card_left {
+  background: linear-gradient(
+        180deg,
+        var(--vc-card-left-border-color, #e8e8e8)
+          var(--vc-card-sawtooth-margin, 0.25rem),
+        transparent 0,
+        transparent calc(100% - var(--vc-card-sawtooth-margin, 0.25rem)),
+        var(--vc-card-left-border-color, #e8e8e8)
+          calc(100% - var(--vc-card-sawtooth-margin, 0.25rem))
+      )
+      0 0 /0.0625rem 100% no-repeat,
+    linear-gradient(
+        180deg,
+        var(--vc-card-left-fill-color, #fff)
+          var(--vc-card-sawtooth-margin, 0.25rem),
+        transparent 0,
+        transparent calc(100% - var(--vc-card-sawtooth-margin, 0.25rem)),
+        var(--vc-card-left-fill-color, #fff)
+          calc(100% - var(--vc-card-sawtooth-margin, 0.25rem))
+      )
+      0 0/100% 100% no-repeat;
+  border-bottom: 0.0625rem solid var(--vc-card-left-border-color, #e8e8e8);
+  border-bottom-left-radius: 0.125rem;
+  border-top: 0.0625rem solid var(--vc-card-left-border-color, #e8e8e8);
+  border-top-left-radius: 0.125rem;
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: var(--vc-card-height, 7.375rem);
+}
+
+.vc_Card_sawtooth {
+  background: linear-gradient(
+        180deg,
+        transparent calc(var(--vc-card-radius, 0.25rem) * 2),
+        var(--vc-card-left-border-color, #e8e8e8) 0
+      )
+      0 0.0625rem /0.0625rem calc(
+        var(--vc-card-radius, 0.25rem) * 2 + var(--vc-card-gap, 0.125rem)
+      ) repeat-y,
+    radial-gradient(
+        circle at 0 var(--vc-card-radius, 0.25rem),
+        transparent 0,
+        transparent calc(var(--vc-card-radius, 0.25rem) - 0.0625rem),
+        var(--vc-card-left-border-color, #e8e8e8) 0,
+        var(--vc-card-left-border-color, #e8e8e8) var(--vc-card-radius, 0.25rem),
+        var(--vc-card-left-fill-color, #fff) 0
+      )
+      0 0.0625rem /100% calc(
+        var(--vc-card-radius, 0.25rem) * 2 + var(--vc-card-gap, 0.125rem)
+      ) repeat-y;
+  bottom: calc(var(--vc-card-sawtooth-margin, 0.25rem) - 0.0625rem);
+  position: absolute;
+  top: calc(var(--vc-card-sawtooth-margin, 0.25rem) - 0.0625rem);
+  width: 100%;
+}
+
+.vc_Card_right {
+  background-color: var(--vc-card-background-color, #fff);
+  border: 0.0625rem solid var(--vc-card-right-border-color, #e8e8e8);
+  border-bottom-right-radius: 0.125rem;
+  border-left: none;
+  border-top-right-radius: 0.125rem;
+  box-sizing: border-box;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(100% - var(--vc-card-height, 7.375rem));
+}
+
+.vc_VoucherStandardTemplate_hideOverflow {
+  border: 0.0625rem solid transparent;
+  border-radius: 0.125rem;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.vc_VoucherStandardTemplate_template {
+  border: 0.0625rem solid transparent;
+  border-left: none;
+  box-shadow: var(
+    --vc-template-box-shadow,
+    0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.07)
+  );
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  position: relative;
+  transition: background 1s ease;
+}
+
+.vc_VoucherStandardTemplate_fsv .vc_VoucherStandardTemplate_left,
+.vc_VoucherStandardTemplate_shopee .vc_VoucherStandardTemplate_left {
+  border-right: none;
+}
+
+.vc_VoucherStandardTemplate_left {
+  align-items: center;
+  border-right: 0.0625rem dashed #e8e8e8;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: var(--vc-card-height, 7.375rem);
+}
+
+.vc_Logo_imageLogo {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.vc_IconText_oneLine {
+  -webkit-line-clamp: 1;
+}
+
+.vc_IconText_defaultLine,
+.vc_IconText_oneLine {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vc_IconText_iconText {
+  -webkit-box-pack: center;
+  color: var(--vc-icon-text-color, rgba(0, 0, 0, 0.87));
+  font-size: var(--vc-icon-text-font-size, 0.75rem);
+  line-height: var(--vc-icon-text-line-height, 0.875rem);
+  margin-top: var(--vc-icon-text-margin-top, 0.3125rem);
+  max-height: var(--vc-icon-text-max-height, 1.75rem);
+  max-width: 90%;
+  opacity: var(--vc-icon-text-opacity, 1);
+  padding: 0 0.25rem;
+  text-align: center;
+  white-space: var(--vc-icon-text-white-space, unset);
+  word-break: break-word;
+}
+
+.vc_Logo_logo {
+  display: block;
+  height: var(--vc-logo-size, 3.5rem);
+  width: var(--vc-logo-size, 3.5rem);
+}
+
+img {
+  border: 0;
+}
+
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.vc_VoucherStandardTemplate_middle {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-left: 0.75rem;
+  position: relative;
+}
+
+.vc_Label_label div:only-child {
+  max-width: 100%;
+}
+
+.vc_Subtitle_subTitle {
+  color: var(--vc-sub-title-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--vc-subtitle-font-size, 0.875rem);
+  font-weight: var(--vc-subtitle-font-weight, normal);
+  line-height: var(--vc-subtitle-line-height, 1rem);
+  margin: var(--vc-sub-title-margin, 0);
+  padding: var(--vc-sub-title-padding, 0);
+  text-align: var(--vc-subtitle-text-align, unset);
+  white-space: var(--vc-sub-title-white-space, unset);
+  word-break: break-word;
+}
+
+.vc_MainTitle_text {
+  color: var(--vc-main-title-color, rgba(0, 0, 0, 0.8));
+  font-size: var(--vc-main-title-font-size, 1rem);
+  font-weight: 500;
+  line-height: var(--vc-main-title-line-height, 1.25rem);
+  white-space: var(--vc-card-mian-title-white-space, nowrap);
+}
+
+.vc_Label_label .vc_Label_shopeeWalletLabelContent {
+  align-items: center;
+  font-size: var(--vc-card-label-font-size, 0.75rem);
+  line-height: var(--vc-card-label-line-height, 0.875rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vc_Label_label {
+  display: flex;
+  margin: var(--vc-card-label-margin, 0.3125rem 0 0.25rem 0);
+  min-width: 0;
+  overflow: hidden;
+  padding: var(--vc-card-label-padding, 0);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vc_Label_label .vc_Label_shopeeWalletLabel {
+  border-radius: 0.125rem;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 0.0625rem 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.0625rem 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vc_ProgressBarExpiry_progressBarExpiry {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: var(--vc-expiry-font-size, 0.75rem);
+  line-height: var(--vc-expiry-line-height, 0.875rem);
+  margin: var(--vc-card-progress-expiry-margin, 0.25rem 0 0 0);
+  margin-top: var(--vc-expiry-margin-top, 0.25rem);
+  overflow: hidden;
+  padding-right: var(--vc-card-progress-expiry-padding-right, 0);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vc_VoucherStandardTemplate_right {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.75rem;
+  position: relative;
+}
+
+.vc_VoucherStandardTemplate_center {
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.vc_RadioButton_radioDisabled {
+  cursor: not-allowed !important;
+}
+
+.vc_RadioButton_radio {
+  stroke: currentColor;
+  fill: currentColor;
+  align-items: center;
+  border: var(--vc-radio-button-border, 1px solid rgba(0, 0, 0, 0.14));
+  border-radius: 50%;
+  box-shadow: var(--vc-radio-button-box-shadow, rgba(0, 0, 0, 0.02) 0 2px 0 0);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  height: 1.125rem;
+  justify-content: center;
+  width: 1.125rem;
+}
+
+.vc_choosen .vc_RadioButton_radio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: #041e3a;
+}
+
+.vc_TNCLink_tncLink {
+  cursor: pointer;
+  display: inline;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.vc_TNCLink_tncLink > a {
+  color: #508be3;
+  text-decoration: none;
+}
+
+.vc_CornerBadge_invalid {
+  background-color: var(--vc-corner-badge-bg-color, #999);
+}
+
+.vc_CornerBadge_levelCorner {
+  left: -0.25rem;
+  top: 0.3125rem;
+}
+
+.vc_CornerBadge_cornerBadge {
+  border-radius: 0.125rem 0.125rem 0.125rem 0;
+  color: #fff;
+  display: flex;
+  font-size: var(--vc-corner-badge-font-size, 0.625rem);
+  line-height: var(--vc-corner-badge-line-height, 0.75rem);
+  padding: var(--vc-corner-badge-padding, 0.125rem 0.25rem);
+  position: absolute;
+}
+
+.JbRfQk {
+  border-top: 1px solid rgb(240, 240, 240);
+  margin-bottom: 1.25rem;
+}
+
+.stardust-dropdown {
+  position: relative;
+}
+
+.qApwIE {
+  display: flex;
+  flex-direction: column;
+}
+
+.qApwIE .stardust-dropdown__item-header {
+  cursor: pointer;
+  user-select: none;
+  margin-top: -0.9375rem;
+  padding: 0.75rem;
+  color: rgb(85, 85, 85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 1;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+.A6ZiE7 {
+  margin-left: 0.5rem;
+}
+.shopee-svg-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  position: relative;
+}
+
+/*========= coupons ==========*/
+.vc_shopee-voucher_pc {
+  --vc-logo-size: 3.5rem;
+  --vc-expiry-font-size: 0.75rem;
+  --vc-expiry-line-height: 0.875rem;
+  --vc-expiry-margin-top: 0.25rem;
+  --vc-main-title-font-size: 1rem;
+  --vc-main-title-line-height: 1.25rem;
+  --vc-subtitle-font-size: 0.875rem;
+  --vc-subtitle-line-height: 1rem;
+  --vc-product-scope-font-size: 0.75rem;
+  --vc-product-scope-line-height: 0.875rem;
+  --vc-product-scope-padding: 0.0625rem 0.25rem;
+  --vc-icon-text-font-size: 0.75rem;
+  --vc-icon-text-line-height: 0.875rem;
+  --vc-icon-text-max-height: 1.75rem;
+  --vc-icon-text-margin-top: 0.25rem;
+  --vc-radio-button-border: 0.0625rem solid rgba(0, 0, 0, 0.14);
+  --vc-radio-button-box-shadow: var(--black2) 0 0.125rem 0 0;
+  --vc-icon-text-color: #fff;
+  --vc-card-width: auto;
+  margin-bottom: 15px;
+}
+
+.vc_Card_shopee {
+  --vc-card-left-border-color: #041e3a;
+  --vc-card-left-fill-color: #041e3a;
+  --vc-card-right-border-color: #e8e8e8;
+  --vc-card-background-color: #fff;
+}
+
+/*========= footer ===========*/
+
+.oS7fgU .shopee-popup-form__footer {
+  height: 4rem;
+  padding: 0px 1.5rem;
+}
+.shopee-popup-form__footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: flex-end;
+  right: 0px;
+  height: 84px;
+  text-transform: uppercase;
+  background: linear-gradient(rgba(255, 255, 255, 0.9), rgb(255, 255, 255));
+  align-items: center;
+  padding: 22px 30px;
+  box-sizing: border-box;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.asfDVE {
+  position: absolute;
+  bottom: 100%;
+  background: rgb(255, 255, 255);
+  left: 0px;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.oS7fgU .shopee-popup-form__footer .cancel-btn {
+  margin-right: 0.5rem;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.26);
+}
+.oS7fgU .shopee-popup-form__footer button {
+  min-width: 8.75rem;
+  height: 2.5rem;
+}
+
+.oS7fgU .shopee-popup-form__footer button {
+  min-width: 8.75rem;
+  height: 2.5rem;
+  border-radius: 0%;
+}

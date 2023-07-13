@@ -1,0 +1,140 @@
+.news .post-container {
+  max-width: 776px;
+  margin: 0 auto;
+}
+.news .post__title {
+  font-size: 32px;
+  line-height: 40px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.news .post__user {
+  padding-bottom: 24px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.news .border-bottom {
+  border-bottom: 1px solid #ccc;
+}
+
+.news .post__user .author-avatar {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  margin-right: 8px;
+}
+
+.news .post__user .author-avatar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.news .post__user .author-name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  margin-right: 4px;
+  display: block;
+}
+
+.news .post__user .author-info {
+  margin-top: 4px;
+  max-height: 20px;
+}
+
+.news .post__user .post-time {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6a737a;
+  padding-right: 12px;
+  position: relative;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.news .post__user .post-time:before {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 0;
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #939ca3;
+}
+
+.news .post__des,
+.news .post__list {
+  margin-bottom: 24px;
+}
+
+.news .post__des {
+  font-size: 18px;
+  line-height: 32px;
+  color: #444b52;
+  font-weight: 500;
+}
+
+.news .post__content h2 {
+  font-size: 28px;
+  line-height: 36px;
+  color: #32373d;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.news .post__content p {
+  font-size: 18px;
+  line-height: 32px;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #444b52;
+}
+
+.news .post__content ul {
+  list-style-type: none !important;
+  margin-bottom: 16px;
+}
+
+.news ul li {
+  list-style: none;
+  font: normal 11px/17px Segoeui, Arial, Verdana, serif;
+}
+
+.news .post__content ul li {
+  margin: 0 0 20px 0;
+}
+
+.news .post__content ul li {
+  font-size: 18px;
+  line-height: 32px;
+  position: relative;
+  padding-left: 14px;
+  color: #444b52;
+}
+
+.news .post__content ul li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  background: #939ca3;
+  border-radius: 50%;
+}

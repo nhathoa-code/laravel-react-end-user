@@ -1,0 +1,17 @@
+.review {
+  display: flex;
+  align-items: center;
+}
+
+.product-review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.product-review .product-review-name {
+  color: #707070;
+  font-size: small;
+  margin-top: 5px;
+}

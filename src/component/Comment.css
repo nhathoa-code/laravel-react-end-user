@@ -1,0 +1,423 @@
+/*========= copy from fpt ===========*/
+.fpt-comment .modal[data-animation="on"] {
+  transition: none;
+  transition-delay: 0s;
+}
+
+.fpt-comment .modal.open,
+.fpt-comment .modal.modal--is-visible {
+  z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+}
+.fpt-comment .modal {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.fpt-comment .modal-md .modal-wrapper {
+  max-width: 576px;
+}
+
+.fpt-comment .modal-wrapper {
+  outline: none;
+  width: 100%;
+  margin: 100px auto;
+}
+
+.fpt-comment .modal[data-animation="on"].open .modal-wrapper,
+.fpt-comment .modal[data-animation="on"].modal--is-visible .modal-wrapper {
+  transition-delay: 0.3s;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0, 0, 0.4, 1);
+}
+
+.fpt-comment .modal-box {
+  background: #fff;
+  width: 100%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border-radius: 4px;
+  position: relative;
+}
+
+.fpt-comment .modal-lg .modal-header,
+.fpt-comment .modal-md .modal-header {
+  padding: 10px 24px;
+}
+
+.fpt-comment .modal-header {
+  border: none;
+}
+.fpt-comment .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: inset 0 -1px 0 #edeeef;
+}
+
+.fpt-comment .heading {
+  margin-bottom: 0;
+}
+
+.fpt-comment .f-s-p-24 {
+  font-size: 24px;
+  line-height: 32px;
+}
+.fpt-comment .f-w-500,
+.fpt-comment .pagination-link {
+  font-weight: 500;
+}
+.fpt-comment .heading {
+  color: #32373d;
+  font-weight: 500;
+}
+
+.fpt-comment .modal-close {
+  cursor: pointer;
+  outline: none;
+  color: #939ca3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fpt-comment .cm-ic-md {
+  font-size: 18px;
+}
+.fpt-comment i {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+[class^="cm-ic-"],
+[class*="cm-ic-"] {
+  font-family: "cm-icon" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fpt-comment .modal-lg .modal-body,
+.fpt-comment .modal-md .modal-body {
+  padding: 16px 24px;
+}
+
+.fpt-comment .modal-body {
+  color: #444b52;
+}
+
+.fpt-comment .flex-wrap {
+  flex-wrap: wrap;
+}
+
+.fpt-comment .flex {
+  display: flex;
+}
+
+.fpt-comment .modal .checkbox,
+.fpt-comment .modal .radio {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.fpt-comment .m-r-16 {
+  margin-right: 16px;
+}
+.fpt-comment .radio {
+  display: flex;
+  align-items: center;
+}
+
+.fpt-comment .modal .checkbox input,
+.fpt-comment .modal .radio input {
+  position: relative !important;
+  margin-left: 0 !important;
+}
+
+.fpt-comment .radio-sm input {
+  margin-right: 8px;
+}
+.fpt-comment .radio input {
+  position: relative;
+  border: none;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+.fpt-comment input[type="radio"] {
+  vertical-align: text-bottom;
+}
+
+.fpt-comment .modal .radio input[type="radio"]:after,
+.fpt-comment .modal .radio input[type="radio"]:before {
+  width: 16px;
+  height: 16px;
+}
+
+.fpt-comment .radio input[type="radio"]:before {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+}
+.fpt-comment .modal .radio input[type="radio"]:after,
+.fpt-comment .modal .radio input[type="radio"]:before {
+  width: 16px;
+  height: 16px;
+}
+.fpt-comment .radio input[type="radio"]:after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  top: 0;
+  border-color: #cbd1d6;
+  border-width: 1px;
+  border-style: solid;
+  background: #fff;
+}
+
+.fpt-comment .modal .checkbox label,
+.fpt-comment .modal .radio label {
+  padding: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fpt-comment .flex-wrap {
+  flex-wrap: wrap;
+}
+.fpt-comment .flex-between {
+  justify-content: space-between;
+}
+.fpt-comment .flex {
+  display: flex;
+}
+.fpt-comment .m-t-8 {
+  margin-top: 8px;
+}
+
+.fpt-comment .cs-form--half {
+  width: calc(50% - 8px);
+  display: inline-block;
+}
+.fpt-comment .modal-body .form-group {
+  margin-bottom: 8px;
+  margin-top: 0px !important;
+}
+
+.fpt-comment .modal-body .form-group input {
+  padding: 5px;
+}
+
+.cm-ic-close-thin:before {
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 600;
+  font-size: 30px;
+  content: "\f00d";
+}
+
+.fpt-comment .form-input-md {
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.fpt-comment .form-input {
+  position: relative;
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  padding: 7.5px 11px;
+  color: #444b52;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #cbd1d6;
+  border-radius: 4px;
+  transition: color 0.3s cubic-bezier(0, 0, 0.4, 1),
+    background-color 0.3s cubic-bezier(0, 0, 0.4, 1),
+    border-color 0.3s cubic-bezier(0, 0, 0.4, 1),
+    box-shadow 0.3s cubic-bezier(0, 0, 0.4, 1);
+}
+
+.fpt-comment .modal-body .form-group:last-child {
+  margin-bottom: 0;
+}
+.fpt-comment .cs-form--full {
+  width: 100%;
+  display: block;
+}
+
+.fpt-comment .form-group {
+  position: relative;
+}
+
+.fpt-comment .form-input-md {
+  padding: 5px 12px;
+}
+
+.fpt-comment .modal-lg .modal-footer,
+.fpt-comment .modal-md .modal-footer {
+  padding: 0 16px 16px;
+}
+.fpt-comment .modal-footer {
+  border-top: none;
+}
+.fpt-comment .modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.fpt-comment .btn-primary {
+  color: #fff;
+  background: #041e3a;
+  outline: none;
+}
+
+.fpt-comment .btn-lg {
+  font-size: 16px;
+  line-height: 16px;
+  border-radius: 6px;
+  padding: 0 16px;
+  height: 36px;
+}
+.fpt-comment .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+  font-family: inherit;
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition: all 0.3s cubic-bezier(0, 0, 0.4, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.fpt-comment button,
+.fpt-comment input[type="button"] {
+  width: auto;
+  overflow: visible;
+}
+
+.fpt-comment .radio-sm input {
+  margin-right: 8px;
+}
+.fpt-comment .radio input[type="radio"]:checked::before {
+  transform: scale(0.625);
+  z-index: 2;
+  background: #041e3a;
+}
+.fpt-comment .radio input[type="radio"]:checked:after {
+  border-color: #041e3a;
+}
+
+.fpt-comment .flex-center-ver {
+  align-items: center;
+}
+.fpt-comment .flex {
+  display: flex;
+}
+.fpt-comment .m-b-8 {
+  margin-bottom: 8px;
+}
+
+.fpt-comment .text-grayscale-800 {
+  color: #32373d;
+  margin-right: 10px;
+}
+.fpt-comment strong {
+  font-weight: 500;
+}
+.fpt-comment .link {
+  cursor: pointer;
+}
+
+.fpt-comment .link {
+  position: relative;
+}
+
+.fpt-comment .link-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #0664f9;
+}
+.fpt-comment .link-xs {
+  font-size: 14px;
+  line-height: 14px;
+}
+.fpt-comment .link:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #0664f9;
+  -webkit-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0, 0, 0.4, 1),
+    -webkit-transform 0.3s cubic-bezier(0, 0, 0.4, 1);
+}
+.fpt-comment .link:hover:before {
+  transform: scale(1);
+}
+
+.fpt-comment .m-r-4 {
+  margin-right: 4px;
+}
+.fpt-comment .text-link {
+  color: #0664f9;
+}
+.fpt-comment .cm-ic-xs {
+  font-size: 14px;
+}
+.fpt-comment i {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+.fpt-comment .link:hover,
+.fpt-comment .link:focus {
+  color: #0664f9;
+}
+
+.cm-ic-edit:before {
+  font-family: "Font Awesome\ 5 Free";
+  font-weight: 600;
+  font-size: smaller;
+  content: "\f044";
+}

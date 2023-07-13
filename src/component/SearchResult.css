@@ -1,0 +1,28 @@
+.search-result img {
+  vertical-align: middle;
+}
+
+.search-result .senull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.search-result #list-searched-product {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.search-result-count {
+  color: #707070;
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+.has-text-centered {
+  text-align: center !important;
+}

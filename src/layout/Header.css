@@ -1,0 +1,146 @@
+.navbar__link--account__container {
+  display: flex;
+  align-items: center;
+  text-transform: none;
+}
+
+.private .shopee-avatar {
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-bottom: 3px;
+}
+
+.shopee-avatar {
+  display: inline-block;
+  width: 1.875rem;
+  height: 1.875rem;
+  position: relative;
+  border-radius: 50%;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+}
+
+.shopee-avatar__placeholder {
+  width: 100%;
+  position: relative;
+  padding-top: 100%;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.private .shopee-avatar__placeholder .icon-headshot {
+  font-size: 0.9375rem;
+  line-height: 0.9375rem;
+}
+.shopee-avatar__placeholder .icon-headshot {
+  stroke: #c6c6c6;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.shopee-svg-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  position: relative;
+}
+
+.navbar__username {
+  max-width: 9.375rem;
+  padding-left: 0.3125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+#block_nav_primary svg {
+  fill: #fff;
+  width: 30px;
+  height: auto;
+}
+
+#block_nav_primary .svg_pk {
+  .st0 {
+    fill: #fff;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .st1 {
+    fill: #fff;
+  }
+  .st2 {
+    fill: transparent;
+    stroke: #fff;
+    stroke-width: 0.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+#block_nav_primary .svg_pk .st0 {
+  stroke: #fff;
+}
+
+#block_nav_primary .svg_pk .st1 {
+  fill: #fff;
+}
+
+#block_nav_primary .svg_pk .st2 {
+  stroke: #fff;
+}
+
+#block_nav_primary svg .st0 {
+  fill: #fff;
+}
+
+.private path,
+#block_nav_primary #Capa_1 path {
+  fill: #fff !important;
+}
+
+.private .cls-1,
+.private .cls-2,
+#block_nav_primary .cls-1,
+#block_nav_primary .cls-2 {
+  stroke: #fff;
+}
+
+.private .cls-3,
+#block_nav_primary .cls-3 {
+  fill: #fff;
+}
+
+#block_nav_primary #_x32_,
+#block_nav_primary #svg_tivi,
+#block_nav_primary #Capa_1,
+#block_nav_primary #svg_smarthome,
+#block_nav_primary #tech_news {
+  margin-right: 7px;
+}
+
+.private #tech_news {
+  width: 25px !important;
+  margin-right: 5px;
+}
+
+#block_nav_primary #svg_smarthome {
+  width: 25px !important;
+}
+
+.cart_cont {
+  position: relative;
+}
+
+#block_nav_primary #smartwatch path {
+  fill: #fff;
+}
