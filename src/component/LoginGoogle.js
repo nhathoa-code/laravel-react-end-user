@@ -29,9 +29,10 @@ const LoginGoogle = () => {
         `${process.env.REACT_APP_API_ENDPOINT}/auth/callback${window.location.search}`
       )
       .then((res) => {
+        setProcessing(false);
+        // return console.log(res.data);
         if (res.status === 200) {
-          console.log(res.status);
-          console.log(res.data);
+          localStorage.setItem("auth_token", res.data.auth_token);
           setUser(res.data.user);
           setShoppingCart(res.data.shopping_cart);
           if (localStorage.getItem("next_url")) {
@@ -41,7 +42,8 @@ const LoginGoogle = () => {
           }
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err.response);
         setPopup({
           message: "Có lỗi xảy ra,vui lòng đăng nhập lại!",
           action: () => {

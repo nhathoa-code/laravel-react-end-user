@@ -43,7 +43,11 @@ const OrderDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/orders/${id}`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/orders/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setOrder(res.data);
@@ -80,7 +84,15 @@ const OrderDetail = () => {
     }
     setProcessing(true);
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/reviews_to_prove`, formData)
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}/reviews_to_prove`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setProcessing(false);

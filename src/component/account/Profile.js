@@ -17,7 +17,11 @@ const Profile = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/user/profile`)
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/user/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setIsLoading(false);

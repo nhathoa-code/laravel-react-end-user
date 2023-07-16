@@ -92,7 +92,9 @@ const NewsLayout = () => {
       });
     document.querySelector("#main-top").style.position = "relative";
     return () => {
-      document.querySelector("#main-top").style.position = "sticky";
+      if (document.querySelector("#main-top")) {
+        document.querySelector("#main-top").style.position = "sticky";
+      }
     };
   }, []);
   return (

@@ -7,11 +7,17 @@ const Review = () => {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/reviews`).then((res) => {
-      setLoading(false);
-      console.log(res.data);
-      setReviews(res.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/reviews`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        console.log(res.data);
+        setReviews(res.data);
+      });
   }, []);
 
   return (

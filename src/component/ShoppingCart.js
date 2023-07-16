@@ -83,9 +83,17 @@ const ShoppingCart = () => {
     quantity.value = Number(quantity.value) - 1;
     setIsUpdating(true);
     axios
-      .put(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`, {
-        action: "-",
-      })
+      .put(
+        `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`,
+        {
+          action: "-",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
+      )
       .then((res) => {
         setShoppingCart((prev) => {
           return [...prev].map((item) => {
@@ -120,9 +128,17 @@ const ShoppingCart = () => {
     const quantity = document.querySelector("#quantity_" + id);
     quantity.value = Number(quantity.value) + 1;
     axios
-      .put(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`, {
-        action: "+",
-      })
+      .put(
+        `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`,
+        {
+          action: "+",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
+      )
       .then((res) => {
         setShoppingCart((prev) => {
           return [...prev].map((item) => {
@@ -153,7 +169,11 @@ const ShoppingCart = () => {
   const handleDelete = (id) => {
     setIsUpdating(true);
     axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`)
+      .delete(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         setShoppingCart((prev) => {
           return [...prev].filter((item) => item.id !== id);
@@ -185,7 +205,12 @@ const ShoppingCart = () => {
     axios
       .post(
         `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/delete_items`,
-        { items_to_delete: items_to_delete }
+        { items_to_delete: items_to_delete },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
       )
       .then((res) => {
         setShoppingCart((prev) => {
@@ -300,7 +325,12 @@ const ShoppingCart = () => {
     axios
       .put(
         `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${item_id}?update`,
-        data
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
       )
       .then((res) => {
         setIsUpdating(false);

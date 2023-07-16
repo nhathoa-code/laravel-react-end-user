@@ -106,7 +106,11 @@ const Product = ({ props, ref }) => {
       data.version = version;
     }
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart`, data)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         setShoppingCart((prev) => {
           if (res.data.new) {

@@ -24,7 +24,13 @@ const Notifications = () => {
     if (status === "unread") {
       axios
         .put(
-          `${process.env.REACT_APP_API_ENDPOINT}/notifications/${notification_id}`
+          `${process.env.REACT_APP_API_ENDPOINT}/notifications/${notification_id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+            },
+          }
         )
         .then(() => {
           setNotifications((prev) => {
@@ -40,7 +46,12 @@ const Notifications = () => {
     setProcessing(true);
     axios
       .delete(
-        `${process.env.REACT_APP_API_ENDPOINT}/notifications/${notification_id}`
+        `${process.env.REACT_APP_API_ENDPOINT}/notifications/${notification_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
       )
       .then((res) => {
         setProcessing(false);

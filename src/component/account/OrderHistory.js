@@ -19,7 +19,11 @@ const OrderHistory = () => {
       case "0":
         if (!orders[0]) {
           axios
-            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Tất cả`)
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Tất cả`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
               setOrders((prev) => {
                 return { ...prev, 0: res.data };
@@ -31,7 +35,12 @@ const OrderHistory = () => {
         if (!orders[1]) {
           axios
             .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Chờ thanh toán`
+              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Chờ thanh toán`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+                },
+              }
             )
             .then((res) => {
               setOrders((prev) => {
@@ -44,7 +53,12 @@ const OrderHistory = () => {
         if (!orders[2]) {
           axios
             .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã xác nhận`
+              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã xác nhận`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+                },
+              }
             )
             .then((res) => {
               setOrders((prev) => {
@@ -57,7 +71,12 @@ const OrderHistory = () => {
         if (!orders[3]) {
           axios
             .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đang giao`
+              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đang giao`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+                },
+              }
             )
             .then((res) => {
               setOrders((prev) => {
@@ -70,7 +89,12 @@ const OrderHistory = () => {
         if (!orders[4]) {
           axios
             .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Hoàn thành`
+              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Hoàn thành`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+                },
+              }
             )
             .then((res) => {
               setOrders((prev) => {
@@ -82,7 +106,11 @@ const OrderHistory = () => {
       case "5":
         if (!orders[5]) {
           axios
-            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã hủy`)
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã hủy`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
               setOrders((prev) => {
                 return { ...prev, 5: res.data };

@@ -96,13 +96,11 @@ const Login = () => {
 
   const googleLogin = () => {
     setProcessing(true);
-    axios.get("http://localhost:8000/sanctum/csrf-cookie").then(() => {
-      axios
-        .get(`${process.env.REACT_APP_API_ENDPOINT}/auth/redirect`)
-        .then((res) => {
-          window.location.href = res.data;
-        });
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/auth/redirect`)
+      .then((res) => {
+        window.location.href = res.data;
+      });
   };
 
   return (

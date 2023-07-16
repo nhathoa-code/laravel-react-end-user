@@ -215,7 +215,11 @@ const Checkout = () => {
     axios
       .all([
         fetch("https://provinces.open-api.vn/api/?depth=3"),
-        axios.get(`${process.env.REACT_APP_API_ENDPOINT}/address`),
+        axios.get(`${process.env.REACT_APP_API_ENDPOINT}/address`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }),
       ])
       .then(
         axios.spread(async (res1, res2) => {
@@ -333,7 +337,11 @@ const Checkout = () => {
     };
     if (isEditMode) {
       axios
-        .put(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, data)
+        .put(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        })
         .then((res) => {
           setAddress((prev) => {
             return [...prev].map((item) => {
@@ -352,7 +360,11 @@ const Checkout = () => {
         });
     } else {
       axios
-        .post(`${process.env.REACT_APP_API_ENDPOINT}/address`, data)
+        .post(`${process.env.REACT_APP_API_ENDPOINT}/address`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
           setAddress((prev) => {
@@ -385,15 +397,19 @@ const Checkout = () => {
     }
   }, [addNewAddress]);
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`)
-      .then(() => {
-        setAddress((prev) => {
-          return [...prev].filter((item) => item.id !== id);
-        });
-      });
-  };
+  // const handleDelete = (id) => {
+  //   axios
+  //     .delete(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+  //       },
+  //     })
+  //     .then(() => {
+  //       setAddress((prev) => {
+  //         return [...prev].filter((item) => item.id !== id);
+  //       });
+  //     });
+  // };
 
   const handleEdit = (id) => {
     const edited_address = address.find((item) => item.id === id);
@@ -464,7 +480,11 @@ const Checkout = () => {
       data.return_url = `http://${window.location.host}/online_payment/vnpay`;
     }
     axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/orders`, data)
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/orders`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         setIsLoading(false);
         if (paymentMethod === "vnpay") {

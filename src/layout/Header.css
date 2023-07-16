@@ -1,13 +1,13 @@
 .navbar__link--account__container {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  text-transform: none;
 }
-
 .private .shopee-avatar {
   width: 1.375rem;
   height: 1.375rem;
-  margin-bottom: 3px;
+  /* margin-bottom: 3px; */
 }
 
 .shopee-avatar {
@@ -18,6 +18,9 @@
   border-radius: 50%;
   border: 0.0625rem solid rgba(0, 0, 0, 0.09);
   box-sizing: border-box;
+}
+.navbar__username {
+  margin-top: 3px;
 }
 
 .shopee-avatar__placeholder {

@@ -154,13 +154,20 @@ const Address = () => {
     fetch("https://provinces.open-api.vn/api/?depth=3").then(async (res) => {
       let data = await res.json();
       setCities(data);
+      console.log(data);
       localStorage.setItem("cities", JSON.stringify(data));
     });
-    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/address`).then((res) => {
-      setIsLoading(false);
-      console.log(res.data);
-      setAddress(res.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/address`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
+      .then((res) => {
+        setIsLoading(false);
+        console.log(res.data);
+        setAddress(res.data);
+      });
     return () => {
       localStorage.removeItem("cities");
       localStorage.removeItem("districts");
@@ -259,7 +266,11 @@ const Address = () => {
     };
     if (isEditMode) {
       axios
-        .put(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, data)
+        .put(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        })
         .then((res) => {
           setAddress((prev) => {
             return [...prev].map((item) => {
@@ -277,7 +288,11 @@ const Address = () => {
         });
     } else {
       axios
-        .post(`${process.env.REACT_APP_API_ENDPOINT}/address`, data)
+        .post(`${process.env.REACT_APP_API_ENDPOINT}/address`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
           setAddress((prev) => {
@@ -322,7 +337,11 @@ const Address = () => {
   const handleDelete = (id) => {
     setIsProcessing(true);
     axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`)
+      .delete(`${process.env.REACT_APP_API_ENDPOINT}/address/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then(() => {
         setIsProcessing(false);
         setAddress((prev) => {

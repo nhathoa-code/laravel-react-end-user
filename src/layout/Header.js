@@ -19,11 +19,22 @@ const Header = () => {
 
   const handleLogout = () => {
     setProcessing(true);
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/logout`).then(() => {
-      setProcessing(false);
-      setUser(null);
-      setShoppingCart([]);
-    });
+    axios
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
+      )
+      .then(() => {
+        setProcessing(false);
+        localStorage.removeItem("auth_token");
+        setUser(null);
+        setShoppingCart([]);
+      });
   };
 
   useEffect(() => {
@@ -180,7 +191,10 @@ const Header = () => {
             ) : (
               <>
                 <li>
-                  <Link to={"/account"}>
+                  <Link
+                    style={{ display: "flex", alignItems: "center" }}
+                    to={"/account"}
+                  >
                     <div class="navbar__link--account__container">
                       <div class="shopee-avatar">
                         <div class="shopee-avatar__placeholder">
@@ -209,9 +223,11 @@ const Header = () => {
                           </svg>
                         </div>
                       </div>
-                      <div class="navbar__username">
-                        {user.profile.nickname}
-                      </div>
+                      {user.profile.nickname && (
+                        <div class="navbar__username">
+                          {user.profile.nickname}
+                        </div>
+                      )}
                     </div>
                   </Link>
                 </li>
