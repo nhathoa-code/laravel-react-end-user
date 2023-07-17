@@ -162,8 +162,7 @@ const Home = () => {
 
                 <div class="clear"></div>
               </div> */}
-
-              <div class="clear"></div>
+          
               {productsCategories.length > 0 && (
                 <>
                   {" "}
