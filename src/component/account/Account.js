@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -13,20 +13,31 @@ import { AppStoreContext } from "../../provider/AppStoreProvider";
 
 const Account = () => {
   const [open, setOpen] = React.useState(true);
-  const { notifications, setNotifications } = useContext(AppStoreContext);
+  const { path, setPath } = useContext(AppStoreContext);
 
-  const navigate = useNavigate();
+  const { notifications, setNotifications, setCountOrders } =
+    useContext(AppStoreContext);
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/notifications`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-        },
-      })
-      .then((res) => {
-        setNotifications(res.data);
-      });
+      .all([
+        axios.get(`${process.env.REACT_APP_API_ENDPOINT}/notifications`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }),
+        axios.get(`${process.env.REACT_APP_API_ENDPOINT}/orders/count`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }),
+      ])
+      .then(
+        axios.spread((res1, res2) => {
+          setNotifications(res1.data);
+          setCountOrders(res2.data);
+        })
+      );
   }, []);
 
   const handleClick = () => {
@@ -53,13 +64,15 @@ const Account = () => {
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <Link to={"/account/profile"}>
+                <Link
+                  onClick={() => setPath("profile")}
+                  to={"/account/profile"}
+                >
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon></ListItemIcon>
                     <ListItemText
                       style={
-                        window.location.pathname === "/account/profile" ||
-                        window.location.pathname === "/account"
+                        path === "profile" || path === "account"
                           ? { color: "#EE4D2D" }
                           : {}
                       }
@@ -67,22 +80,24 @@ const Account = () => {
                     />
                   </ListItemButton>
                 </Link>
-                <Link to={"/account/address"}>
+                <Link
+                  onClick={() => setPath("address")}
+                  to={"/account/address"}
+                >
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon></ListItemIcon>
                     <ListItemText
-                      style={
-                        window.location.pathname === "/account/address"
-                          ? { color: "#EE4D2D" }
-                          : {}
-                      }
+                      style={path === "address" ? { color: "#EE4D2D" } : {}}
                       primary="Địa chỉ"
                     />
                   </ListItemButton>
                 </Link>
               </List>
             </Collapse>
-            <Link to={"/account/orders_history"}>
+            <Link
+              onClick={() => setPath("orders_history")}
+              to={"/account/orders_history"}
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <img
@@ -91,16 +106,15 @@ const Account = () => {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  style={
-                    window.location.pathname === "/account/orders_history"
-                      ? { color: "#EE4D2D" }
-                      : {}
-                  }
+                  style={path === "orders_history" ? { color: "#EE4D2D" } : {}}
                   primary="Đơn hàng"
                 />
               </ListItemButton>
             </Link>
-            <Link to={"/account/notifications"}>
+            <Link
+              onClick={() => setPath("notifications")}
+              to={"/account/notifications"}
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <img
@@ -109,11 +123,7 @@ const Account = () => {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  style={
-                    window.location.pathname === "/account/notifications"
-                      ? { color: "#EE4D2D" }
-                      : {}
-                  }
+                  style={path === "notifications" ? { color: "#EE4D2D" } : {}}
                   primary={`Thông báo${
                     notifications
                       ? notifications.filter((item) => item.status === "unread")
@@ -129,7 +139,7 @@ const Account = () => {
                 />
               </ListItemButton>
             </Link>
-            <Link to={"/account/review"}>
+            <Link onClick={() => setPath("reviews")} to={"/account/reviews"}>
               <ListItemButton>
                 <ListItemIcon>
                   <img
@@ -138,16 +148,12 @@ const Account = () => {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  style={
-                    window.location.pathname === "/account/review"
-                      ? { color: "#EE4D2D" }
-                      : {}
-                  }
+                  style={path === "reviews" ? { color: "#EE4D2D" } : {}}
                   primary="Lịch sử đánh giá"
                 />
               </ListItemButton>
             </Link>
-            <Link to={"/account/recent"}>
+            <Link onClick={() => setPath("recent")} to={"/account/recent"}>
               <ListItemButton>
                 <ListItemIcon>
                   <img
@@ -156,16 +162,12 @@ const Account = () => {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  style={
-                    window.location.pathname === "/account/recent"
-                      ? { color: "#EE4D2D" }
-                      : {}
-                  }
+                  style={path === "recent" ? { color: "#EE4D2D" } : {}}
                   primary="Sản phẩm đã xem"
                 />
               </ListItemButton>
             </Link>
-            <Link to={"/account/coupons"}>
+            <Link onClick={() => setPath("coupons")} to={"/account/coupons"}>
               <ListItemButton>
                 <ListItemIcon>
                   <img
@@ -174,11 +176,7 @@ const Account = () => {
                   />
                 </ListItemIcon>
                 <ListItemText
-                  style={
-                    window.location.pathname === "/account/coupons"
-                      ? { color: "#EE4D2D" }
-                      : {}
-                  }
+                  style={path === "coupons" ? { color: "#EE4D2D" } : {}}
                   primary="Mã giảm giá"
                 />
               </ListItemButton>

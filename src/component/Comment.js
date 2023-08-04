@@ -53,7 +53,7 @@ const CommentForm = ({
         .post(`${process.env.REACT_APP_API_ENDPOINT}/comments`, data)
         .then((res) => {
           setProcessing(false);
-          console.log(res.data);
+
           setPopup({
             message:
               "Bình luận của bạn sẽ được chúng tôi kiểm duyệt và trả lời trước khi hiển thị",
@@ -135,7 +135,7 @@ const Comment = ({ product_id }) => {
         .post(`${process.env.REACT_APP_API_ENDPOINT}/comments`, data)
         .then((res) => {
           setProcessing(false);
-          console.log(res.data);
+
           setPopup({
             message:
               "Bình luận của bạn sẽ được chúng tôi kiểm duyệt và trả lời trước khi hiển thị",
@@ -162,7 +162,6 @@ const Comment = ({ product_id }) => {
         `${process.env.REACT_APP_API_ENDPOINT}/comments?product_id=${product_id}`
       )
       .then((res) => {
-        console.log(res.data);
         setComments(
           res.data.map((item) => {
             item.replied = false;
@@ -436,7 +435,7 @@ const Comment = ({ product_id }) => {
                                 ></path>
                               </svg>
                             </div>
-                            &nbsp;1 tuần trước
+                            &nbsp;{item.created_at}
                           </div>
                         </div>
                         <div class="box-cmt__box-question">
@@ -517,7 +516,7 @@ const Comment = ({ product_id }) => {
                                               ></path>
                                             </svg>
                                           </div>
-                                          &nbsp;2 tuần trước
+                                          &nbsp;{reply.created_at}
                                         </div>
                                       </div>
                                       <div class="box-cmt__box-question">

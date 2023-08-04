@@ -407,7 +407,6 @@
 
 .PF0-AU,
 .PgtIur {
-  margin: 0 0 0 10px;
   align-items: center;
   text-overflow: ellipsis;
 }
@@ -444,13 +443,6 @@
   background-color: #041e3a;
   border-color: #041e3a;
   color: #fff;
-}
-
-.PF0-AU,
-.PgtIur {
-  margin: 0 0 0 10px;
-  align-items: center;
-  text-overflow: ellipsis;
 }
 
 .EOjXew,
@@ -522,4 +514,11 @@
   font-size: 18px;
   line-height: 1.4;
   color: rgba(0, 0, 0, 0.8);
+}
+
+.fSW3m4 {
+  margin: 0 0 0 4px;
+  vertical-align: initial;
+  font-size: 14px;
+  color: #ee4d2d;
 }

@@ -1,0 +1,8 @@
+#list-product {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+}

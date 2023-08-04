@@ -30,13 +30,11 @@ const Coupons = () => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_ENDPOINT}/coupons`).then((res) => {
       setIsLoading(false);
-      console.log(res.data);
       setCoupons(res.data);
     });
   }, []);
 
   const openCondition = (coupon) => {
-    console.log(coupon);
     setCoupon(coupon);
     handleOpen();
   };
@@ -309,10 +307,7 @@ const Coupons = () => {
                               <div class="vc_VoucherStandardTemplate_center"></div>
                               <div onClick={() => openCondition(item)}>
                                 <div class="vc_TNCLink_tncLink">
-                                  <a
-                                    onClick={() => console.log("")}
-                                    href="javascript:void(0)"
-                                  >
+                                  <a href="javascript:void(0)">
                                     <span>Điều Kiện</span>
                                   </a>
                                 </div>

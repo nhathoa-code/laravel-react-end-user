@@ -230,11 +230,13 @@ const ShoppingCart = () => {
     const item_id = e.target.dataset.item_id;
     const color = e.target.dataset.color;
     const color_name = e.target.dataset.color_name;
+    const color_id = e.target.dataset.color_id;
     setShoppingCart((prev) => {
       return [...prev].map((item) => {
         if (item.id == item_id) {
           item.image = color;
           item.color = color_name;
+          item.color_id = Number(color_id);
           return item;
         } else {
           return item;
@@ -259,11 +261,12 @@ const ShoppingCart = () => {
               !shopping_cart.find(
                 (item) =>
                   item.product_id === item_version.product_id &&
-                  item.color === item_version.colors[i].color_name
+                  item.color_id === item_version.colors[i].id
               )
             ) {
               item.color = item_version.colors[i].color_name;
               item.image = item_version.colors[i].color;
+              item.color_id = item_version.colors[i].id;
               break;
             }
           }
@@ -306,15 +309,15 @@ const ShoppingCart = () => {
     };
     if (back_up_item.version !== cart_item.version) {
       data.image = cart_item.image;
-      data.color = cart_item.color;
+      data.color_id = cart_item.color_id;
       data.product_id = cart_item.product_id;
       data.name = cart_item.name;
       data.price = cart_item.price;
       data.discounted_price = cart_item.discounted_price;
       data.version = cart_item.version;
-    } else if (back_up_item.color !== cart_item.color) {
+    } else if (back_up_item.color_id !== cart_item.color_id) {
       data.image = cart_item.image;
-      data.color = cart_item.color;
+      data.color_id = cart_item.color_id;
     } else {
       return closeModal();
     }
@@ -559,6 +562,7 @@ const ShoppingCart = () => {
                     <div class="+4E7yJ">Thao Tác</div>
                   </div>
                   {shopping_cart.map((item) => {
+                    console.log(item);
                     if (item.purchase) {
                       subtotal +=
                         item.quantity * (item.price - item.discounted_price);
@@ -569,7 +573,7 @@ const ShoppingCart = () => {
                           cart_item.product_id === item.product_id &&
                           cart_item.id !== item.id
                       )
-                      .map((item) => item.color);
+                      .map((item) => item.color_id);
 
                     return (
                       <div key={item.id} class="_48e0yS">
@@ -740,8 +744,6 @@ const ShoppingCart = () => {
                                                                     ? " product-variation--selected"
                                                                     : ""
                                                                 }`}
-                                                                aria-label="Trắng"
-                                                                aria-disabled="false"
                                                                 data-version={
                                                                   Item.version_name
                                                                 }
@@ -809,7 +811,7 @@ const ShoppingCart = () => {
                                                         (Item) => {
                                                           if (
                                                             duplicated_colors.includes(
-                                                              Item.color_name
+                                                              Item.id
                                                             )
                                                           ) {
                                                             return (
@@ -826,18 +828,19 @@ const ShoppingCart = () => {
                                                                   handleUpdateColor
                                                                 }
                                                                 class={`product-variation${
-                                                                  Item.color_name ===
-                                                                  item.color
+                                                                  Item.id ===
+                                                                  item.color_id
                                                                     ? " product-variation--selected"
                                                                     : ""
                                                                 }`}
-                                                                aria-label="37"
-                                                                aria-disabled="false"
                                                                 data-color_name={
                                                                   Item.color_name
                                                                 }
                                                                 data-color={
                                                                   Item.color
+                                                                }
+                                                                data-color_id={
+                                                                  Item.id
                                                                 }
                                                                 data-item_id={
                                                                   item.id
@@ -846,8 +849,8 @@ const ShoppingCart = () => {
                                                                 {
                                                                   Item.color_name
                                                                 }
-                                                                {Item.color_name ===
-                                                                  item.color && (
+                                                                {Item.id ===
+                                                                  item.color_id && (
                                                                   <div class="product-variation__tick">
                                                                     <svg
                                                                       enable-background="new 0 0 12 12"

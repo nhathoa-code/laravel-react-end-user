@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Comment from "./Comment";
 import Review from "./Review";
 import axios from "axios";
+import Countdown from "react-countdown";
 import Loader from "./loader/Loader";
 import parse from "html-react-parser";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Spinner from "./spinner/Spinner";
+import { useCookies } from "react-cookie";
 
 // Import reactjs modal
 import Modal from "@mui/material/Modal";
@@ -59,6 +61,7 @@ const Product = ({ props, ref }) => {
   const [color, setColor] = useState(null);
   const [version, setVersion] = useState(null);
   const { slug } = useParams("slug");
+  const [cookies, setCookie] = useCookies();
   const {
     setShoppingCart,
     products_to_compare,
@@ -93,14 +96,10 @@ const Product = ({ props, ref }) => {
     button.style.pointerEvents = "none";
     let data = {
       product_id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.price,
-      discounted_price: product.discounted_price,
       image: color ? color.image : product.image,
     };
     if (color) {
-      data.color = color.color;
+      data.color_id = color.id;
     }
     if (version) {
       data.version = version;
@@ -116,6 +115,10 @@ const Product = ({ props, ref }) => {
           if (res.data.new) {
             let item = {
               ...res.data.cart_item,
+              name: product.name,
+              slug: product.slug,
+              price: product.price,
+              discounted_price: product.discounted_price,
               isUpdate: false,
               purchase: false,
             };
@@ -163,6 +166,7 @@ const Product = ({ props, ref }) => {
     setColor({
       image: e.currentTarget.dataset.image,
       color: e.currentTarget.dataset.color,
+      id: Number(e.currentTarget.dataset.id),
     });
   };
 
@@ -195,7 +199,7 @@ const Product = ({ props, ref }) => {
         if (!isLoading) {
           setChangingVersion(false);
         }
-        console.log(res.data);
+
         let count = 0;
         const specification = JSON.parse(res.data.specification);
         setProduct(() => {
@@ -225,7 +229,7 @@ const Product = ({ props, ref }) => {
         if (reviews.length === 0) {
           setAverageStar(0);
         } else {
-          let total_stars = 0;
+          var total_stars = 0;
           for (let i = 0; i < reviews.length; i++) {
             total_stars += reviews[i].star;
           }
@@ -242,10 +246,42 @@ const Product = ({ props, ref }) => {
           setColor({
             image: res.data.colors[0].color.color,
             color: res.data.colors[0].color.color_name,
+            id: res.data.colors[0].color.id,
           });
         } else if (res.data.hasOwnProperty("gallery")) {
           setGallery(res.data.gallery);
         }
+        const expired_date = new Date();
+        expired_date.setHours(expired_date.getHours() + 168);
+        let recently_viewed_products = cookies.recently_viewed_products
+          ? cookies.recently_viewed_products
+          : [];
+        if (!recently_viewed_products.find((item) => item.id === res.data.id)) {
+          if (recently_viewed_products.length > 11) {
+            recently_viewed_products.pop();
+          }
+          recently_viewed_products.unshift({
+            id: res.data.id,
+            name: res.data.name,
+            slug: res.data.slug,
+            image: res.data.image,
+            price: res.data.price,
+            discounted_price: res.data.discounted_price,
+            reviews: {
+              average_star: total_stars / reviews.length,
+              total_reviews: reviews.length,
+            },
+          });
+        }
+        setCookie(
+          "recently_viewed_products",
+          JSON.stringify(recently_viewed_products),
+          {
+            path: "/",
+            expires: expired_date,
+          }
+        );
+
         axios.post(
           `${process.env.REACT_APP_API_ENDPOINT}/products/increment_view/${res.data.id}`
         );
@@ -329,6 +365,107 @@ const Product = ({ props, ref }) => {
                 <div class="IZIVH+">
                   <div class="nTpKes">{product.reviews.length} đánh giá</div>
                 </div>
+
+                {product.flash_sale && (
+                  <div>
+                    <i
+                      style={{ margin: "0 10px" }}
+                      class="fa fa-bolt"
+                      aria-hidden="true"
+                    ></i>
+                    <Countdown
+                      date={new Date(product.flash_sale_end_time)}
+                      zeroPadTime={2}
+                      renderer={({
+                        days,
+                        hours,
+                        minutes,
+                        seconds,
+                        completed,
+                      }) => (
+                        <>
+                          <div class="timer" id="timer_6">
+                            {days > 0 && (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  {days}
+                                </strong>
+                                <span
+                                  style={{
+                                    marginRight: "10px",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  ngày
+                                </span>
+                              </>
+                            )}
+                            {hours < 10 ? (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  0
+                                </strong>
+                                <strong> {hours} </strong>
+                              </>
+                            ) : (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  {hours.toString().split("")[0]}
+                                </strong>
+                                <strong>{hours.toString().split("")[1]}</strong>
+                              </>
+                            )}
+                            <span> : </span>
+                            {minutes < 10 ? (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  0
+                                </strong>
+                                <strong> {minutes} </strong>
+                              </>
+                            ) : (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  {minutes.toString().split("")[0]}
+                                </strong>
+                                <strong>
+                                  {minutes.toString().split("")[1]}
+                                </strong>
+                              </>
+                            )}
+                            <span> : </span>
+                            {seconds < 10 ? (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  0
+                                </strong>
+                                <strong> {seconds} </strong>
+                              </>
+                            ) : (
+                              <>
+                                <strong style={{ marginRight: "5px" }}>
+                                  {seconds.toString().split("")[0]}
+                                </strong>
+                                <strong>
+                                  {seconds.toString().split("")[1]}
+                                </strong>
+                              </>
+                            )}
+                          </div>
+                        </>
+                      )}
+                      onComplete={() => {
+                        setProduct((prev) => {
+                          return {
+                            ...prev,
+                            discounted_price: product.discounted_price_backup,
+                          };
+                        });
+                      }}
+                    />
+                  </div>
+                )}
+
                 <div
                   style={{
                     flex: "1",
@@ -458,6 +595,7 @@ const Product = ({ props, ref }) => {
                           }}
                           data-image={item.color.color}
                           data-color={item.color.color_name}
+                          data-id={item.color.id}
                           class={`st-select-color__item js--select-color-item${
                             index === 0 ? " active" : ""
                           }`}
@@ -549,67 +687,6 @@ const Product = ({ props, ref }) => {
                         </>
                       )}
                     </button>
-                    {/* <button
-                      onClick={handleAddToCart}
-                      class="button add-to-cart-button"
-                    >
-                      {isAddingToCart ? (
-                        <Spinner />
-                      ) : (
-                        <>
-                          <svg
-                            enable-background="new 0 0 15 15"
-                            viewBox="0 0 15 15"
-                            x="0"
-                            y="0"
-                            class="shopee-svg-icon tDviDD icon-add-to-cart"
-                          >
-                            <g>
-                              <g>
-                                <polyline
-                                  fill="none"
-                                  points=".5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-miterlimit="10"
-                                ></polyline>
-                                <circle
-                                  cx="6"
-                                  cy="13.5"
-                                  r="1"
-                                  stroke="none"
-                                ></circle>
-                                <circle
-                                  cx="11.5"
-                                  cy="13.5"
-                                  r="1"
-                                  stroke="none"
-                                ></circle>
-                              </g>
-                              <line
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-miterlimit="10"
-                                x1="7.5"
-                                x2="10.5"
-                                y1="7"
-                                y2="7"
-                              ></line>
-                              <line
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-miterlimit="10"
-                                x1="9"
-                                x2="9"
-                                y1="8.5"
-                                y2="5.5"
-                              ></line>
-                            </g>
-                          </svg>
-                          <span>Thêm vào giỏ</span>
-                        </>
-                      )}
-                    </button> */}
                   </div>
                 </div>
                 {product.suggestion.length > 0 && (
@@ -831,7 +908,7 @@ const Product = ({ props, ref }) => {
                     </div>
                   </div>
                 </div>
-                {product.posts.length > 0 && (
+                {/* {product.posts.length > 0 && (
                   <div class="block-sforum">
                     <div class="sforum__title">
                       <div class="icon">
@@ -890,7 +967,7 @@ const Product = ({ props, ref }) => {
                       </a>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

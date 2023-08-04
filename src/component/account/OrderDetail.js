@@ -23,6 +23,14 @@ const OrderDetail = () => {
     cod: "Thanh toán khi nhận hàng",
   };
 
+  const status_list = [
+    { status_code: 1, status: "Chờ xác nhận" },
+    { status_code: 2, status: "Chờ lấy hàng" },
+    { status_code: 3, status: "Đang giao" },
+    { status_code: 4, status: "Đã giao" },
+    { status_code: 7, status: "Đã hủy" },
+  ];
+
   useEffect(() => {
     if (order) {
       document
@@ -49,7 +57,6 @@ const OrderDetail = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setOrder(res.data);
         if (res.data.order.coupons) {
           setCoupons(JSON.parse(res.data.order.coupons));
@@ -94,7 +101,6 @@ const OrderDetail = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setProcessing(false);
         setPopup({
           message:
@@ -191,7 +197,12 @@ const OrderDetail = () => {
                     <div class="block-order-detail">
                       <div class="order-detail__code">
                         <p class="code__name">
-                          Mã đơn hàng: {order.order.id} - {order.order.status}
+                          Mã đơn hàng: {order.order.id} -{" "}
+                          {
+                            status_list.find(
+                              (item) => item.status_code === order.order.status
+                            ).status
+                          }
                         </p>
                         <p class="code__time">{order.order.created_at}</p>
                       </div>
@@ -408,7 +419,7 @@ const OrderDetail = () => {
                                     </div>
                                   </div>
                                 </div>
-                                {order.order.status === "Hoàn thành" && (
+                                {order.order.status === 4 && (
                                   <div class="AM4Cxf">
                                     <div class="qtUncs">
                                       {/* <span>Không nhận được đánh giá</span> */}

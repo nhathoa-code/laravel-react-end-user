@@ -11,10 +11,17 @@ export const AppStoreProvider = ({ children }) => {
   const [products_to_compare, setProductsToCompare] = useState([]);
   const [productsCategories, setProductsCategories] = useState([]);
   const [banners, setBanners] = useState([]);
+  const [flash_saled_products, setFlashSaledProducts] = useState([]);
   const [compareCat, setCompareCat] = useState();
   const [posts, setPosts] = useState(null);
   const [post, setPost] = useState(null);
   const [chosen_post_category, setChosenPostCategory] = useState(null);
+  const [countOrders, setCountOrders] = useState(null);
+  const [path, setPath] = useState(
+    window.location.pathname.split("/")[
+      window.location.pathname.split("/").length - 1
+    ]
+  );
   return (
     <AppStoreContext.Provider
       value={{
@@ -36,12 +43,18 @@ export const AppStoreProvider = ({ children }) => {
         setProductsCategories,
         banners,
         setBanners,
+        flash_saled_products,
+        setFlashSaledProducts,
         posts,
         setPosts,
         post,
         setPost,
         chosen_post_category,
         setChosenPostCategory,
+        countOrders,
+        setCountOrders,
+        path,
+        setPath,
       }}
     >
       {children}

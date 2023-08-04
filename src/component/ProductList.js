@@ -45,7 +45,6 @@ const ProductList = () => {
       )
       .then((res) => {
         setIsLoading(false);
-        console.log(res.data);
         setCategory(res.data.category);
         let query_filter = false;
         if (res.data.hasOwnProperty("attributes")) {
@@ -98,6 +97,7 @@ const ProductList = () => {
         if (query_filter) {
           setPreventFilter(false);
         } else {
+          console.log(res.data.products.data);
           setProducts(res.data.products.data);
           setTotal(res.data.products.total);
           setPerPage(res.data.products.per_page);
@@ -144,8 +144,9 @@ const ProductList = () => {
         products_per_page: products_per_page,
       })
       .then((res) => {
-        console.log(res.data);
         setIsFiltering(false);
+
+        console.log(res.data.filtered_products.data);
         setProducts(res.data.filtered_products.data);
         setTotal(res.data.filtered_products.total);
         setPerPage(res.data.filtered_products.per_page);
@@ -222,7 +223,6 @@ const ProductList = () => {
           products_per_page: products_per_page,
         })
         .then((res) => {
-          console.log(res.data);
           setIsLoadingMore(false);
           setProducts((prev) => {
             return [...prev, ...res.data.filtered_products.data];
@@ -466,6 +466,8 @@ const ProductList = () => {
                 ) : (
                   products.length > 0 &&
                   products.map((item) => {
+                    let averageStar = item.reviews.average_star;
+                    let total_reviews = item.reviews.total_reviews;
                     return (
                       <div class="product-info-container">
                         <div class="product-info">
@@ -530,16 +532,19 @@ const ProductList = () => {
                                 )}
                               </div>
                             </div>
-                            <div class="product__promotions">
-                              <div>
-                                <div class="promotion">
-                                  <p class="coupon-price">
-                                    Phần Mềm Diệt Virus, Office chính hãng chỉ
-                                    từ 150k và <b>1 km</b> khác
-                                  </p>
+                            {item.discounted_price > 0 && (
+                              <div class="css-14q2k9d">
+                                <div class="css-zb7zul">
+                                  <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                  <div class="css-1rdv2qd">
+                                    {new Intl.NumberFormat({
+                                      style: "currency",
+                                    }).format(item.discounted_price)}
+                                    &nbsp;₫
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                             <div
                               class="product__promotions"
                               style={{ display: "none" }}
@@ -603,6 +608,15 @@ const ProductList = () => {
                                     </div>
                                   );
                                 })}
+                                <p
+                                  style={{
+                                    fontSize: "0.9rem",
+                                    marginLeft: "5px",
+                                    color: "#999",
+                                  }}
+                                >
+                                  ({total_reviews})
+                                </p>
                               </div>
                             </div>
                           </div>

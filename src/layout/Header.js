@@ -12,7 +12,8 @@ import "./Header.css";
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
   const [processing, setProcessing] = useState(false);
-  const { shopping_cart, setShoppingCart } = useContext(AppStoreContext);
+  const { shopping_cart, setShoppingCart, setPath } =
+    useContext(AppStoreContext);
   const [total_cart_items, setTotalCartItems] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const { setChosenPostCategory } = useContext(AppStoreContext);
@@ -48,7 +49,11 @@ const Header = () => {
   const handleDeleteCartItem = (id) => {
     setIsDeleting(true);
     axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`)
+      .delete(`${process.env.REACT_APP_API_ENDPOINT}/shopping_cart/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      })
       .then((res) => {
         setIsDeleting(false);
         setShoppingCart((prev) => {
@@ -69,10 +74,15 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            <img
+            {/* <img
               style={{ width: "80px", height: "auto" }}
               src="/images/logo.png"
-            />
+            /> */}
+            <span
+              style={{ color: "#fff", fontWeight: "bold", fontSize: "1.5rem" }}
+            >
+              Eshop
+            </span>
           </Link>
         </hgroup>
       </div>
@@ -192,6 +202,7 @@ const Header = () => {
               <>
                 <li>
                   <Link
+                    onClick={() => setPath("profile")}
                     style={{ display: "flex", alignItems: "center" }}
                     to={"/account"}
                   >

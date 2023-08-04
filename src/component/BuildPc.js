@@ -86,7 +86,6 @@ const BuildPc = () => {
         products_per_page: products_per_page,
       })
       .then((res) => {
-        console.log(res.data);
         setIsFiltering(false);
         setProducts(res.data.filtered_products.data);
         setTotal(res.data.filtered_products.total);
@@ -97,7 +96,7 @@ const BuildPc = () => {
 
   useEffect(() => {
     if (categories.length > 0) {
-      let build_pc;
+      let build_pc = [];
       if (localStorage.getItem("build_pc")) {
         build_pc = JSON.parse(
           CryptoJS.AES.decrypt(
@@ -314,7 +313,6 @@ const BuildPc = () => {
           products_per_page: products_per_page,
         })
         .then((res) => {
-          console.log(res.data);
           setIsLoadingMore(false);
           setProducts((prev) => {
             return [...prev, ...res.data.filtered_products.data];
@@ -365,7 +363,7 @@ const BuildPc = () => {
           crypto_secret
         ).toString(CryptoJS.enc.Utf8)
       );
-      console.log(build_pc);
+
       const type_device = build_pc.find((item) => item.type_id === type_id);
       if (type_device) {
         type_device.device = {
@@ -397,7 +395,6 @@ const BuildPc = () => {
       );
     }
     handleClose();
-    console.log(type_of_devices);
   };
 
   const handleDelete = (type_id) => {
@@ -526,7 +523,12 @@ const BuildPc = () => {
         post_reqs.push(
           axios.post(
             `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart`,
-            data
+            data,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            }
           )
         );
       });
@@ -561,7 +563,6 @@ const BuildPc = () => {
             let purchase_items = responses.map((res) => res.data.cart_item.id);
             setShoppingCart((prev) => {
               return [...prev].map((item) => {
-                console.log(item.id);
                 if (purchase_items.includes(item.id)) {
                   item.purchase = true;
                 } else {
@@ -581,7 +582,6 @@ const BuildPc = () => {
       )
       .catch((err) => {
         setIsAddingToCart(false);
-        console.log(err);
       });
   };
 
@@ -1199,10 +1199,7 @@ const BuildPc = () => {
                           >
                             {() => (
                               <a class="btn btn-link btn-lg flex-row w-100 m-b-8">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 512 512"
-                                >
+                                <svg viewBox="0 0 512 512">
                                   <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zM432 456c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"></path>
                                 </svg>
                                 <span class="f-s-ui-16">TẢI BẢNG GIÁ</span>

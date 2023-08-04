@@ -1,25 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import "./OrderHistory.css";
 import Popup from "../popup/Popup";
 import Loader from "../loader/Loader";
+import { AppStoreContext } from "../../provider/AppStoreProvider";
 
 const OrderHistory = () => {
-  const [orderId, setOrderId] = useState(null);
   const [popup, setPopup] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [searchParams] = useSearchParams();
+  const { setShoppingCart, countOrders, setCountOrders } =
+    useContext(AppStoreContext);
   const [status, setStatus] = useState(
     searchParams.get("status") ? searchParams.get("status") : "0"
   );
+  const navigate = useNavigate();
   const [orders, setOrders] = useState({});
-
+  const status_list = [
+    { status_code: 1, status: "Chờ xác nhận" },
+    { status_code: 2, status: "Chờ lấy hàng" },
+    { status_code: 3, status: "Đang giao" },
+    { status_code: 4, status: "Đã giao" },
+    { status_code: 7, status: "Đã hủy" },
+  ];
   useEffect(() => {
     switch (status) {
       case "0":
         if (!orders[0]) {
           axios
-            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Tất cả`, {
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=0`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
               },
@@ -34,14 +44,11 @@ const OrderHistory = () => {
       case "1":
         if (!orders[1]) {
           axios
-            .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Chờ thanh toán`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-                },
-              }
-            )
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=1`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
               setOrders((prev) => {
                 return { ...prev, 1: res.data };
@@ -52,14 +59,11 @@ const OrderHistory = () => {
       case "2":
         if (!orders[2]) {
           axios
-            .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã xác nhận`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-                },
-              }
-            )
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=2`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
               setOrders((prev) => {
                 return { ...prev, 2: res.data };
@@ -70,14 +74,11 @@ const OrderHistory = () => {
       case "3":
         if (!orders[3]) {
           axios
-            .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đang giao`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-                },
-              }
-            )
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=3`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
               setOrders((prev) => {
                 return { ...prev, 3: res.data };
@@ -88,32 +89,30 @@ const OrderHistory = () => {
       case "4":
         if (!orders[4]) {
           axios
-            .get(
-              `${process.env.REACT_APP_API_ENDPOINT}/orders?status=Hoàn thành`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-                },
-              }
-            )
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=4`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+              },
+            })
             .then((res) => {
+              console.log(res.data);
               setOrders((prev) => {
                 return { ...prev, 4: res.data };
               });
             });
         }
         break;
-      case "5":
-        if (!orders[5]) {
+      case "7":
+        if (!orders[7]) {
           axios
-            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=Đã hủy`, {
+            .get(`${process.env.REACT_APP_API_ENDPOINT}/orders?status=7`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
               },
             })
             .then((res) => {
               setOrders((prev) => {
-                return { ...prev, 5: res.data };
+                return { ...prev, 7: res.data };
               });
             });
         }
@@ -127,18 +126,33 @@ const OrderHistory = () => {
     };
   }, [status]);
 
-  const handleCancelOrder = () => {
+  const handleCancelOrder = (order_id) => {
+    setProcessing(true);
+    setPopup();
     axios
       .put(
-        `${process.env.REACT_APP_API_ENDPOINT}/orders/${orderId}?order_cancel`
+        `${process.env.REACT_APP_API_ENDPOINT}/orders/${order_id}?order_cancel`,
+        {
+          canceled_by: "0",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
       )
       .then(() => {
+        setProcessing(false);
+        setCountOrders((prev) => {
+          return { ...prev, status_1: countOrders.status_1 - 1 };
+        });
         let order_canceled;
         let updated_orders = orders[status].filter((item) => {
-          if (item.order.id !== orderId) {
+          if (item.order.id !== order_id) {
             return true;
           } else {
             order_canceled = item;
+            order_canceled.order.status = 7;
             return false;
           }
         });
@@ -146,7 +160,7 @@ const OrderHistory = () => {
         if (status == 0) {
           if (orders[1]) {
             let updated_orders = orders[1].filter(
-              (item) => item.order.id !== orderId
+              (item) => item.order.id !== order_id
             );
             setOrders((prev) => {
               return { ...prev, 1: updated_orders };
@@ -155,7 +169,7 @@ const OrderHistory = () => {
         } else {
           if (orders[0]) {
             let updated_orders = orders[status].filter(
-              (item) => item.order.id !== orderId
+              (item) => item.order.id !== order_id
             );
             setOrders((prev) => {
               return { ...prev, 0: updated_orders };
@@ -164,11 +178,11 @@ const OrderHistory = () => {
         }
 
         setOrders((prev) => {
-          if (orders[5]) {
+          if (orders[7]) {
             return {
               ...prev,
               [status]: updated_orders,
-              5: [...orders[5], order_canceled],
+              7: [order_canceled, ...orders[7]],
             };
           } else {
             return {
@@ -177,12 +191,80 @@ const OrderHistory = () => {
             };
           }
         });
-        setPopup();
+      });
+  };
+
+  const handleReBuy = (order_details) => {
+    console.log(order_details);
+    const post_reqs = [];
+    order_details.forEach((item) => {
+      let data = {
+        product_id: item.product_id,
+        image: item.image,
+      };
+      if (item.color_id) {
+        data.color_id = item.color_id;
+      }
+      if (item.version != "") {
+        data.version = item.version;
+      }
+      post_reqs.push(
+        axios.post(
+          `${process.env.REACT_APP_API_ENDPOINT}/shopping_cart`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+            },
+          }
+        )
+      );
+    });
+    setProcessing(true);
+    axios
+      .all(post_reqs)
+      .then(
+        axios.spread((...responses) => {
+          setProcessing(false);
+          responses.forEach((res) => {
+            setShoppingCart((prev) => {
+              if (res.data.new) {
+                let item = {
+                  ...res.data.cart_item,
+                  name: res.data.product.name,
+                  slug: res.data.product.slug,
+                  price: res.data.product.price,
+                  discounted_price: res.data.product.discounted_price,
+                  isUpdate: false,
+                  purchase: true,
+                };
+                if (res.data.hasOwnProperty("options")) {
+                  item.options = res.data.options;
+                }
+                return [...prev, item];
+              } else {
+                return [...prev].map((item) => {
+                  if (item.id === res.data.cart_item.id) {
+                    item.quantity = res.data.cart_item.quantity;
+                    return item;
+                  } else {
+                    return item;
+                  }
+                });
+              }
+            });
+          });
+          navigate("/cart");
+        })
+      )
+      .catch((err) => {
+        setProcessing(false);
       });
   };
 
   return (
     <div class="--tO6n">
+      {processing && <Loader />}
       {popup && <Popup {...popup} />}
       <div></div>
       <div class="VYJdTQ">
@@ -198,14 +280,20 @@ const OrderHistory = () => {
           class={`OFl2GI${status == 1 ? " gAImis " : ""}`}
           to={`?status=1`}
         >
-          <span class="_20hgQK">Chờ thanh toán</span>
+          <span class="_20hgQK">Chờ xác nhận</span>
+          {countOrders && countOrders.status_1 > 0 && (
+            <span class="fSW3m4">({countOrders.status_1})</span>
+          )}
         </Link>
         <Link
           onClick={() => setStatus("2")}
           class={`OFl2GI${status == 2 ? " gAImis " : ""}`}
           to={`?status=2`}
         >
-          <span class="_20hgQK">Đã xác nhận</span>
+          <span class="_20hgQK">Chờ lấy hàng</span>
+          {countOrders && countOrders.status_2 > 0 && (
+            <span class="fSW3m4">({countOrders.status_2})</span>
+          )}
         </Link>
         <Link
           onClick={() => setStatus("3")}
@@ -213,18 +301,21 @@ const OrderHistory = () => {
           to={`?status=3`}
         >
           <span class="_20hgQK">Đang giao</span>
+          {countOrders && countOrders.status_3 > 0 && (
+            <span class="fSW3m4">({countOrders.status_3})</span>
+          )}
         </Link>
         <Link
           onClick={() => setStatus("4")}
           class={`OFl2GI${status == 4 ? " gAImis " : ""}`}
           to={`?status=4`}
         >
-          <span class="_20hgQK">Hoàn thành</span>
+          <span class="_20hgQK">Đã giao</span>
         </Link>
         <Link
-          onClick={() => setStatus("5")}
-          class={`OFl2GI${status == 5 ? " gAImis " : ""}`}
-          to={`?status=5`}
+          onClick={() => setStatus("7")}
+          class={`OFl2GI${status == 7 ? " gAImis " : ""}`}
+          to={`?status=7`}
         >
           <span class="_20hgQK">Đã hủy</span>
         </Link>
@@ -233,53 +324,25 @@ const OrderHistory = () => {
       {orders[status] ? (
         orders[status].length > 0 ? (
           <>
-            {/* <div class="VrgkXA">
-              <svg width="19px" height="19px" viewBox="0 0 19 19">
-                <g
-                  id="Search-New"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <g
-                    id="my-purchase-copy-27"
-                    transform="translate(-399.000000, -221.000000)"
-                    stroke-width="2"
-                  >
-                    <g
-                      id="Group-32"
-                      transform="translate(400.000000, 222.000000)"
-                    >
-                      <circle id="Oval-27" cx="7" cy="7" r="7"></circle>
-                      <path
-                        d="M12,12 L16.9799555,16.919354"
-                        id="Path-184"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-              <input
-                autocomplete="off"
-                placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm"
-                value=""
-              />
-            </div> */}
             <div>
               {orders[status].map((item) => {
-                let subtotal = 0;
+                const coupons = JSON.parse(item.order.coupons);
                 return (
                   <div class="hiXKxx">
                     <div>
                       <div class="x0QT2k">
                         <div class="KrPQEI">
                           <div class="EQko8g">
-                            <div class="V+w7Xs">{item.order.status}</div>
+                            <div class="V+w7Xs">
+                              {
+                                status_list.find(
+                                  (Item) =>
+                                    Item.status_code == item.order.status
+                                ).status
+                              }
+                            </div>
                             {(status == 1 ||
-                              (status == 0 &&
-                                item.order.status === "Chờ thanh toán")) &&
+                              (status == 0 && item.order.status == 1)) &&
                               item.order.pttt === "vnpay" && (
                                 <div class="PF0-AU">
                                   <button
@@ -299,9 +362,6 @@ const OrderHistory = () => {
                         <Link to={`/account/order/${item.order.id}`}>
                           <div class="_0OiaZ-">
                             {item.order_details.map((item) => {
-                              subtotal =
-                                (item.price - item.discounted_price) *
-                                item.quantity;
                               return (
                                 <div class="FbLutl">
                                   <div>
@@ -414,7 +474,9 @@ const OrderHistory = () => {
                                             <div class="vb0b-P">
                                               Phân loại hàng: {item.color}
                                             </div>
-                                            <div class="_3F1-5M">x1</div>
+                                            <div class="_3F1-5M">
+                                              x{item.quantity}
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -494,23 +556,44 @@ const OrderHistory = () => {
                           ₫
                           {new Intl.NumberFormat({
                             style: "currency",
-                          }).format(subtotal)}
+                          }).format(
+                            item.order.subtotal +
+                              item.order.shipping_fee -
+                              (coupons && coupons.hasOwnProperty("coupon")
+                                ? coupons.coupon.type === "fixed"
+                                  ? coupons.coupon.amount
+                                  : item.order.subtotal *
+                                      (coupons.coupon.amount / 100) >
+                                    coupons.coupon.maximum_discount
+                                  ? coupons.coupon.maximum_discount
+                                  : item.order.subtotal *
+                                    (coupons.coupon.amount / 100)
+                                : 0) -
+                              (coupons && coupons.hasOwnProperty("free_ship")
+                                ? coupons.free_ship.type === "fixed"
+                                  ? coupons.free_ship.amount
+                                  : coupons.free_ship.type === "percent"
+                                  ? item.order.shipping_fee *
+                                      (coupons.free_ship.amount / 100) >
+                                    coupons.free_ship.maximum_discount
+                                    ? coupons.free_ship.maximum_discount
+                                    : item.order.shipping_fee *
+                                      (coupons.free_ship.amount / 100)
+                                  : item.order.shipping_fee
+                                : 0)
+                          )}
                         </div>
                       </div>
                     </div>
-                    {(status == 1 ||
-                      (status == 0 &&
-                        item.order.status === "Chờ thanh toán")) && (
+                    {item.order.status == 1 && (
                       <div class="AM4Cxf">
-                        {/* <div class="qtUncs">
-                          <span>Đã hủy bởi bạn</span>
-                        </div> */}
+                        <div class="qtUncs">
+                          <span></span>
+                        </div>
                         <div class="EOjXew">
                           <div class="PgtIur">
                             <button
-                              // onClick={() => handleCancelOrder(item.order.id)}
                               onClick={() => {
-                                setOrderId(item.order.id);
                                 setPopup({
                                   message: "Bạn thực sự muốn hủy đơn hàng này?",
                                   action: () => {
@@ -526,6 +609,29 @@ const OrderHistory = () => {
                               class="stardust-button stardust-button--secondary WgYvse"
                             >
                               Hủy đơn
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {(item.order.status == 7 || item.order.status == 4) && (
+                      <div class="AM4Cxf">
+                        <div class="qtUncs">
+                          {item.order.status == 7 && (
+                            <span>
+                              {item.order.canceled_by == 0
+                                ? "Đã hủy bởi bạn"
+                                : "Đã hủy bởi người bán"}
+                            </span>
+                          )}
+                        </div>
+                        <div class="EOjXew">
+                          <div class="PgtIur">
+                            <button
+                              onClick={() => handleReBuy(item.order_details)}
+                              class="stardust-button stardust-button--primary WgYvse"
+                            >
+                              Mua lại
                             </button>
                           </div>
                         </div>

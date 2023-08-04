@@ -23,7 +23,6 @@ const Profile = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setIsLoading(false);
         setUserProfile(res.data);
         setBirthDay(
@@ -119,11 +118,15 @@ const Profile = () => {
     axios
       .post(
         `${process.env.REACT_APP_API_ENDPOINT}/user/profile/update`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
       )
       .then((res) => {
         setProcessing(false);
-        console.log(res.data);
       });
   };
 

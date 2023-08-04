@@ -81,8 +81,6 @@ const Compare = () => {
   };
 
   const handleChoose = (item) => {
-    console.log(item);
-    console.log(products_to_compare);
     if (!products_to_compare.find((Item) => Item.id === item.id)) {
       setProductsToCompare((prev) => {
         return [...prev, item];
@@ -127,7 +125,6 @@ const Compare = () => {
     let merged_titles = [];
     let merged_titles_technical_infos = [];
     products_to_compare.forEach((item) => {
-      console.log(item.specification);
       item.specification.forEach((item) => {
         if (!merged_titles.includes(item.title)) {
           merged_titles.push(item.title);
@@ -306,16 +303,19 @@ const Compare = () => {
                           )}
                         </div>
                       </div>
-                      <div class="product__promotions">
-                        <div>
-                          <div class="promotion">
-                            <p class="coupon-price">
-                              Phần Mềm Diệt Virus, Office chính hãng chỉ từ 150k
-                              và <b>1 km</b> khác
-                            </p>
+                      {item.discounted_price > 0 && (
+                        <div class="css-14q2k9d">
+                          <div class="css-zb7zul">
+                            <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                            <div class="css-1rdv2qd">
+                              {new Intl.NumberFormat({
+                                style: "currency",
+                              }).format(item.discounted_price)}
+                              &nbsp;₫
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      )}
                       <div
                         class="product__promotions"
                         style={{ display: "none" }}

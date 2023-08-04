@@ -792,7 +792,7 @@ nav.private ul li a {
   position: relative;
   margin: 50px 0 60px 0;
   margin-top: 0;
-  min-height: calc(100vh - 241px);
+  min-height: calc(100vh - 186px);
 }
 #main.home {
   margin: 24px 0 0 0;
@@ -2041,12 +2041,13 @@ ul.f_contact li + li + li {
   color: #444;
 }
 .f_info {
-  height: 70px;
-  background: #f9fbfc;
+  height: auto;
+  background: #041e3a;
 }
+
 .f_info p.copyright {
-  color: #999;
-  font: 11px/70px Segoeui, Arial, Verdana, serif;
+  color: #fff;
+  font: 11px/50px Segoeui, Arial, Verdana, serif;
 }
 .soc {
   margin: 23px 0 0 0;

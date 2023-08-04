@@ -24,16 +24,12 @@ const PrimaryNav = () => {
     axios
       .get(`${process.env.REACT_APP_API_ENDPOINT}/all_categories`)
       .then((res) => {
-        console.log(res.data);
         setIsLoading(false);
-        // setCategories(res.data);
         setCategories(() => {
           return array_move(res.data, 7, 3);
         });
       });
   }, []);
-
-  console.log(categories);
 
   return (
     <div id="block_nav_primary">

@@ -154,7 +154,6 @@ const Address = () => {
     fetch("https://provinces.open-api.vn/api/?depth=3").then(async (res) => {
       let data = await res.json();
       setCities(data);
-      console.log(data);
       localStorage.setItem("cities", JSON.stringify(data));
     });
     axios
@@ -165,7 +164,6 @@ const Address = () => {
       })
       .then((res) => {
         setIsLoading(false);
-        console.log(res.data);
         setAddress(res.data);
       });
     return () => {
@@ -294,7 +292,6 @@ const Address = () => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           setAddress((prev) => {
             if (res.data.is_defaulted == 1) {
               prev.map((item) => {

@@ -30,7 +30,7 @@ const LoginGoogle = () => {
       )
       .then((res) => {
         setProcessing(false);
-        // return console.log(res.data);
+
         if (res.status === 200) {
           localStorage.setItem("auth_token", res.data.auth_token);
           setUser(res.data.user);
@@ -43,7 +43,6 @@ const LoginGoogle = () => {
         }
       })
       .catch((err) => {
-        console.log(err.response);
         setPopup({
           message: "Có lỗi xảy ra,vui lòng đăng nhập lại!",
           action: () => {

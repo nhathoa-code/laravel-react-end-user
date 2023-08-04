@@ -24,7 +24,26 @@
 .product-layout #left .product-description {
   background: #fff;
   border-radius: 5px;
+  text-align: justify;
 }
+
+.product-layout #left .product-description table {
+  border-collapse: collapse;
+  border-width: 1px;
+}
+
+.product-layout #left .product-description table td {
+  padding: 10px;
+  border: 1px solid #333;
+}
+
+.product-layout #left .product-description h3 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+  margin: 20px 0 15px 0;
+}
+
 .product-text {
   padding: 25px 20px;
   height: 652px;
@@ -69,7 +88,6 @@ a:visited {
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-height: 350px;
 }
 
 .product-specs .product-specs-button {
@@ -448,11 +466,11 @@ img {
 }
 
 .box-linked .list-linked .item-linked:hover {
-  border: 1px solid #d70018;
+  border: 1px solid #041e3a;
 }
 
 .box-linked .list-linked .item-linked:hover:after {
-  background-color: #d70018;
+  background-color: #041e3a;
   color: #fff;
   content: "✓";
   font-size: 10px;
@@ -1556,13 +1574,14 @@ strong {
   overflow: hidden;
   padding: 10px;
   width: calc(100% - 25px);
+  font-size: 14px;
 }
 .block-comment__box-list-comment
   .list-comment
   .item-comment__box-cmt
   .box-cmt__box-question
   .content {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
 }
 
@@ -1969,9 +1988,9 @@ strong {
 
 /*===== custom swal =====*/
 .swal2-title {
-  font-weight: normal;
-  font-size: 1rem;
-  padding-bottom: 10px;
+  font-weight: normal !important;
+  font-size: 1rem !important;
+  padding-bottom: 10px !important;
 }
 
 .swal2-confirm {
@@ -1989,12 +2008,12 @@ strong {
 
 .swal2-popup {
   padding: 5px !important;
-  width: fit-content;
-  border-radius: 3px;
+  width: fit-content !important;
+  border-radius: 3px !important;
 }
 
 .swal2-actions {
-  margin: 10px;
+  margin: 0 !important;
 }
 
 .swal2-styled.swal2-confirm {

@@ -2,7 +2,7 @@ import React from "react";
 import "./Loader.css";
 const Loader = ({ fixed = null }) => {
   return (
-    <div style={fixed ? { position: "fixed" } : {}} id="layover">
+    <div style={fixed ? { position: "fixed", zIndex: "100" } : {}} id="layover">
       <div id="layover_content">
         <div class="loader-container">
           <svg width="34" height="40" viewBox="-1 0 33 12">
@@ -30,7 +30,6 @@ const Loader = ({ fixed = null }) => {
           </svg>
         </div>
       </div>
-      {/*#EE4D2D*/}
     </div>
   );
 };

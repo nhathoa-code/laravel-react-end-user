@@ -1,9 +1,15 @@
 .product-list-container {
   display: flex;
+  align-items: flex-start;
 }
 
 .product-list-container #filter-bar {
   width: 25%;
+  background-color: #fff;
+  margin-right: 30px;
+  padding-left: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 3px 0 #dee2e6;
 }
 
 .product-list-container #filter-bar h3 {

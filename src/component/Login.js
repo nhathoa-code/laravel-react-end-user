@@ -240,7 +240,7 @@ const Login = () => {
                 </button>
               </div>
             </div>
-            <div class="lhhucE">
+            {/* <div class="lhhucE">
               <div class="lreZhl"></div>
               <span class="PqS8vj">hoặc</span>
               <div class="lreZhl"></div>
@@ -254,7 +254,7 @@ const Login = () => {
                   <div class="">Facebook</div>
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* <div class="XLzpXt">
             <div class="Oug9xv Z8OMtU">

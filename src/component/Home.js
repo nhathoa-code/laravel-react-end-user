@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import parse from "html-react-parser";
+import Countdown from "react-countdown";
 import Loader from "./loader/Loader";
 import { AppStoreContext } from "../provider/AppStoreProvider";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -27,8 +27,10 @@ const Home = () => {
     setProductsCategories,
     banners,
     setBanners,
+    flash_saled_products,
+    setFlashSaledProducts,
   } = useContext(AppStoreContext);
-  console.log(categories);
+
   const [isLoading, setIsLoading] = useState(false);
   // const [banners, setBanners] = useState([]);
   let averageStar = 0;
@@ -41,12 +43,15 @@ const Home = () => {
       .all([
         axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products`),
         axios.get(`${process.env.REACT_APP_API_ENDPOINT}/banners`),
+        axios.get(`${process.env.REACT_APP_API_ENDPOINT}/flash_sales`),
       ])
       .then(
-        axios.spread(async (res1, res2) => {
+        axios.spread(async (res1, res2, res3) => {
           console.log(res1.data);
           setProductsCategories(res1.data);
           setBanners(res2.data);
+          setFlashSaledProducts(res3.data);
+          console.log(res3.data);
           setIsLoading(false);
         })
       );
@@ -162,25 +167,105 @@ const Home = () => {
 
                 <div class="clear"></div>
               </div> */}
-
-              <div class="clear"></div>
-              {productsCategories.length > 0 && (
-                <>
-                  {" "}
-                  <div className="product_list">
-                    <h2 className="product-list-title">
-                      ĐIỆN THOẠI NỔI BẬT{" "}
-                      <span>
-                        <Link to={`/${productsCategories[0].slug}`}>
-                          Xem tất cả
-                        </Link>
+              {flash_saled_products.length > 0 &&
+                new Date(flash_saled_products[0].end_time) >
+                  new Date().getTime() && (
+                  <div
+                    style={{ backgroundColor: "#041e3a" }}
+                    className="product_list"
+                  >
+                    <h2
+                      style={{ color: "#fff" }}
+                      className="product-list-title"
+                    >
+                      FLASH SALE
+                      <span style={{ color: "#fff" }}>
+                        <Countdown
+                          daysInHours={true}
+                          date={new Date(flash_saled_products[0].end_time)}
+                          renderer={({ days, hours, minutes, seconds }) => (
+                            <>
+                              <span>
+                                {new Date().getTime() <
+                                new Date(flash_saled_products[0].start_time)
+                                  ? "Bắt đầu sau: "
+                                  : "Kết thúc sau: "}
+                              </span>
+                              <div class="timer" id="timer_6">
+                                {days > 0 && (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      {days}
+                                    </strong>
+                                    <span style={{ marginRight: "10px" }}>
+                                      ngày
+                                    </span>
+                                  </>
+                                )}
+                                {hours < 10 ? (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      0
+                                    </strong>
+                                    <strong> {hours} </strong>
+                                  </>
+                                ) : (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      {hours.toString().split("")[0]}
+                                    </strong>
+                                    <strong>
+                                      {hours.toString().split("")[1]}
+                                    </strong>
+                                  </>
+                                )}
+                                <span> : </span>
+                                {minutes < 10 ? (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      0
+                                    </strong>
+                                    <strong> {minutes} </strong>
+                                  </>
+                                ) : (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      {minutes.toString().split("")[0]}
+                                    </strong>
+                                    <strong>
+                                      {minutes.toString().split("")[1]}
+                                    </strong>
+                                  </>
+                                )}
+                                <span> : </span>
+                                {seconds < 10 ? (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      0
+                                    </strong>
+                                    <strong> {seconds} </strong>
+                                  </>
+                                ) : (
+                                  <>
+                                    <strong style={{ marginRight: "5px" }}>
+                                      {seconds.toString().split("")[0]}
+                                    </strong>
+                                    <strong>
+                                      {seconds.toString().split("")[1]}
+                                    </strong>
+                                  </>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        />
                       </span>
                     </h2>
 
                     <Swiper
                       slidesPerView={5}
                       grid={{
-                        rows: 2,
+                        rows: flash_saled_products.length > 15 ? 2 : 1,
                         fill: "row",
                       }}
                       navigation={true}
@@ -192,7 +277,9 @@ const Home = () => {
                       className="product-list-swiper"
                       style={{ padding: "10px" }}
                     >
-                      {productsCategories[0].products.map((item) => {
+                      {flash_saled_products.map((item) => {
+                        let averageStar = item.reviews.average_star;
+                        let total_reviews = item.reviews.total_reviews;
                         return (
                           <SwiperSlide>
                             <div
@@ -262,16 +349,19 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  <div class="product__promotions">
-                                    <div>
-                                      <div class="promotion">
-                                        <p class="coupon-price">
-                                          Phần Mềm Diệt Virus, Office chính hãng
-                                          chỉ từ 150k và <b>1 km</b> khác
-                                        </p>
+                                  {item.discounted_price > 0 && (
+                                    <div class="css-14q2k9d">
+                                      <div class="css-zb7zul">
+                                        <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                        <div class="css-1rdv2qd">
+                                          {new Intl.NumberFormat({
+                                            style: "currency",
+                                          }).format(item.discounted_price)}
+                                          &nbsp;₫
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  )}
                                   <div
                                     class="product__promotions"
                                     style={{ display: "none" }}
@@ -336,18 +426,215 @@ const Home = () => {
                                           </div>
                                         );
                                       })}
+                                      <p
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          marginLeft: "5px",
+                                          color: "#999",
+                                        }}
+                                      >
+                                        ({total_reviews})
+                                      </p>
                                     </div>
                                   </div>
-                                </div>{" "}
-                                <div
-                                  class="product__sticker-doc-quyen"
-                                  data-src="https://cdn2.cellphones.com.vn/70x/media/sticker/sticker-doc-quyen-3.svg"
-                                  lazy="loading"
-                                  style={{
-                                    display: "none",
-                                    backgroundImage: `url("https://cdn2.cellphones.com.vn/200x/media/wysiwyg/placehoder.png")`,
-                                  }}
-                                ></div>
+                                </div>
+                              </div>
+                            </div>
+                          </SwiperSlide>
+                        );
+                      })}
+                    </Swiper>
+                  </div>
+                )}
+
+              {productsCategories.length > 0 && (
+                <>
+                  <div className="product_list">
+                    <h2 className="product-list-title">
+                      ĐIỆN THOẠI NỔI BẬT{" "}
+                      <span>
+                        <Link to={`/${productsCategories[0].slug}`}>
+                          Xem tất cả
+                        </Link>
+                      </span>
+                    </h2>
+
+                    <Swiper
+                      slidesPerView={5}
+                      grid={{
+                        rows: 2,
+                        fill: "row",
+                      }}
+                      navigation={true}
+                      spaceBetween={15}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      modules={[Grid, Navigation]}
+                      className="product-list-swiper"
+                      style={{ padding: "10px" }}
+                    >
+                      {productsCategories[0].products.map((item) => {
+                        let averageStar = item.reviews.average_star;
+                        let total_reviews = item.reviews.total_reviews;
+                        return (
+                          <SwiperSlide>
+                            <div
+                              style={{ height: "100%" }}
+                              class="product-info-container"
+                            >
+                              <div class="product-info">
+                                <Link
+                                  to={`/products/${item.slug}`}
+                                  class="product__link"
+                                >
+                                  <div class="product__image">
+                                    <img
+                                      src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${item.image}`}
+                                      width="358"
+                                      height="358"
+                                      alt="Laptop Asus Gaming Rog Strix G15 G513IH HN015W"
+                                      class="product__img"
+                                    />
+                                  </div>
+                                  <div class="product__name">
+                                    <h3>{item.name}</h3>
+                                  </div>
+                                  <div class="block-box-price">
+                                    <span
+                                      class="title-price"
+                                      style={{ display: "none" }}
+                                    >
+                                      :
+                                    </span>
+                                    <div class="box-info__box-price">
+                                      {item.discounted_price > 0 ? (
+                                        <>
+                                          <p class="product__price--show">
+                                            {new Intl.NumberFormat({
+                                              style: "currency",
+                                            }).format(
+                                              item.price - item.discounted_price
+                                            )}
+                                            &nbsp;₫
+                                          </p>{" "}
+                                          <p class="product__price--through">
+                                            {new Intl.NumberFormat({
+                                              style: "currency",
+                                            }).format(item.price)}
+                                            &nbsp;₫
+                                          </p>{" "}
+                                          <div class="product__price--percent">
+                                            <p class="product__price--percent-detail">
+                                              Giảm&nbsp;
+                                              {Math.round(
+                                                (item.discounted_price /
+                                                  item.price) *
+                                                  100
+                                              )}
+                                              %
+                                            </p>
+                                          </div>
+                                        </>
+                                      ) : (
+                                        <p class="product__price--show">
+                                          {new Intl.NumberFormat({
+                                            style: "currency",
+                                          }).format(item.price)}
+                                          &nbsp;₫
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {item.discounted_price > 0 && (
+                                    <div class="css-14q2k9d">
+                                      <div class="css-zb7zul">
+                                        <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                        <div class="css-1rdv2qd">
+                                          {new Intl.NumberFormat({
+                                            style: "currency",
+                                          }).format(item.discounted_price)}
+                                          &nbsp;₫
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                  <div
+                                    class="product__promotions"
+                                    style={{ display: "none" }}
+                                  >
+                                    <div class="promotion">
+                                      <p class="gift-cont"></p>
+                                    </div>
+                                  </div>
+                                </Link>
+                                <div class="product__box-rating">
+                                  <div class="shopee-rating-stars">
+                                    <div class="shopee-rating-stars__stars">
+                                      {[1, 2, 3, 4, 5].map((item) => {
+                                        return (
+                                          <div class="shopee-rating-stars__star-wrapper">
+                                            <div
+                                              class="shopee-rating-stars__lit"
+                                              style={
+                                                averageStar > item
+                                                  ? { width: "100%" }
+                                                  : item - averageStar < 1
+                                                  ? {
+                                                      width: `${
+                                                        (averageStar -
+                                                          (item - 1)) *
+                                                        100
+                                                      }%`,
+                                                    }
+                                                  : { width: "0%" }
+                                              }
+                                            >
+                                              <svg
+                                                enable-background="new 0 0 15 15"
+                                                viewBox="0 0 15 15"
+                                                x="0"
+                                                y="0"
+                                                class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid"
+                                              >
+                                                <polygon
+                                                  points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-miterlimit="10"
+                                                ></polygon>
+                                              </svg>
+                                            </div>
+                                            <svg
+                                              enable-background="new 0 0 15 15"
+                                              viewBox="0 0 15 15"
+                                              x="0"
+                                              y="0"
+                                              class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating"
+                                            >
+                                              <polygon
+                                                fill="none"
+                                                points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-miterlimit="10"
+                                              ></polygon>
+                                            </svg>
+                                          </div>
+                                        );
+                                      })}
+                                      <p
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          marginLeft: "5px",
+                                          color: "#999",
+                                        }}
+                                      >
+                                        ({total_reviews})
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </SwiperSlide>
@@ -381,6 +668,8 @@ const Home = () => {
                       style={{ padding: "10px" }}
                     >
                       {productsCategories[1].products.map((item) => {
+                        let averageStar = item.reviews.average_star;
+                        let total_reviews = item.reviews.total_reviews;
                         return (
                           <SwiperSlide>
                             <div
@@ -450,16 +739,20 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  <div class="product__promotions">
-                                    <div>
-                                      <div class="promotion">
-                                        <p class="coupon-price">
-                                          Phần Mềm Diệt Virus, Office chính hãng
-                                          chỉ từ 150k và <b>1 km</b> khác
-                                        </p>
+                                  {item.discounted_price > 0 && (
+                                    <div class="css-14q2k9d">
+                                      <div class="css-zb7zul">
+                                        <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                        <div class="css-1rdv2qd">
+                                          {new Intl.NumberFormat({
+                                            style: "currency",
+                                          }).format(item.discounted_price)}
+                                          &nbsp;₫
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  )}
+
                                   <div
                                     class="product__promotions"
                                     style={{ display: "none" }}
@@ -524,18 +817,18 @@ const Home = () => {
                                           </div>
                                         );
                                       })}
+                                      <p
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          marginLeft: "5px",
+                                          color: "#999",
+                                        }}
+                                      >
+                                        ({total_reviews})
+                                      </p>
                                     </div>
                                   </div>
-                                </div>{" "}
-                                <div
-                                  class="product__sticker-doc-quyen"
-                                  data-src="https://cdn2.cellphones.com.vn/70x/media/sticker/sticker-doc-quyen-3.svg"
-                                  lazy="loading"
-                                  style={{
-                                    display: "none",
-                                    backgroundImage: `url("https://cdn2.cellphones.com.vn/200x/media/wysiwyg/placehoder.png")`,
-                                  }}
-                                ></div>
+                                </div>
                               </div>
                             </div>
                           </SwiperSlide>
@@ -569,6 +862,8 @@ const Home = () => {
                       style={{ padding: "10px" }}
                     >
                       {productsCategories[2].products.map((item) => {
+                        let averageStar = item.reviews.average_star;
+                        let total_reviews = item.reviews.total_reviews;
                         return (
                           <SwiperSlide>
                             <div
@@ -638,16 +933,19 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  <div class="product__promotions">
-                                    <div>
-                                      <div class="promotion">
-                                        <p class="coupon-price">
-                                          Phần Mềm Diệt Virus, Office chính hãng
-                                          chỉ từ 150k và <b>1 km</b> khác
-                                        </p>
+                                  {item.discounted_price > 0 && (
+                                    <div class="css-14q2k9d">
+                                      <div class="css-zb7zul">
+                                        <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                        <div class="css-1rdv2qd">
+                                          {new Intl.NumberFormat({
+                                            style: "currency",
+                                          }).format(item.discounted_price)}
+                                          &nbsp;₫
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  )}
                                   <div
                                     class="product__promotions"
                                     style={{ display: "none" }}
@@ -712,18 +1010,18 @@ const Home = () => {
                                           </div>
                                         );
                                       })}
+                                      <p
+                                        style={{
+                                          fontSize: "0.9rem",
+                                          marginLeft: "5px",
+                                          color: "#999",
+                                        }}
+                                      >
+                                        ({total_reviews})
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
-                                <div
-                                  class="product__sticker-doc-quyen"
-                                  data-src="https://cdn2.cellphones.com.vn/70x/media/sticker/sticker-doc-quyen-3.svg"
-                                  lazy="loading"
-                                  style={{
-                                    display: "none",
-                                    backgroundImage: `url("https://cdn2.cellphones.com.vn/200x/media/wysiwyg/placehoder.png")`,
-                                  }}
-                                ></div>
                               </div>
                             </div>
                           </SwiperSlide>

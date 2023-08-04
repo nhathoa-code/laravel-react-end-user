@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setUser({ ...res.data.user });
         setIsLogginChecked(true);
         setShoppingCart(

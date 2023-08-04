@@ -366,7 +366,6 @@ const Checkout = () => {
           },
         })
         .then((res) => {
-          console.log(res.data);
           setAddress((prev) => {
             return [...prev, res.data];
           });

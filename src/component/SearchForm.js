@@ -41,7 +41,7 @@ const SearchForm = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [search_keyword, setSearchKeyWord] = useState(false);
   const [search_trend, setSearchTrend] = useState(null);
-  const [search_history, setSearchHistory] = useState(null);
+  const [search_history, setSearchHistory] = useState([]);
   const [most_view, setMostView] = useState(null);
   const [suggest_search_products, setSuggestSearchProducts] = useState([]);
   const formEl = useRef(null);
@@ -77,11 +77,6 @@ const SearchForm = () => {
       .querySelector("form.search input[name=search]")
       .addEventListener("focus", function () {
         setIsSearch(true);
-        // if (this.value.length === 0) {
-        //   setSearchKeyWord(false);
-        // } else {
-        //   setSearchKeyWord(true);
-        // }
         overLayEl.current.style.display = "block";
         if (suggestEl.current) {
           suggestEl.current.style.display = "block";
@@ -115,26 +110,6 @@ const SearchForm = () => {
           return;
         }
         const Input = this;
-        // myTimeout = setTimeout(function () {
-        //   axios
-        //     .get(
-        //       `${process.env.REACT_APP_API_ENDPOINT}/products/search_keyword`,
-        //       {
-        //         params: {
-        //           keyword: Input.value,
-        //         },
-        //       }
-        //     )
-        //     .then((res) => {
-        //       // setSearchKeyWord(true);
-        //       if (this.value === "") {
-        //         setSuggestSearchProducts([]);
-        //       } else {
-        //         setSuggestSearchProducts(res.data);
-        //       }
-        //       console.log(res.data);
-        //     });
-        // }, 500);
       });
     let search_history = localStorage.getItem("search_history");
     if (search_history) {
@@ -158,14 +133,12 @@ const SearchForm = () => {
       searchProductsEl.current.style.display = "none";
     }
     let history_search = localStorage.getItem("search_history");
-    console.log(history_search);
     if (history_search) {
       if (!search_history.includes(inputEl.current.value)) {
         setSearchHistory((prev) => {
           return [inputEl.current.value, ...prev];
         });
         history_search = JSON.parse(history_search);
-        console.log(history_search);
         history_search = [inputEl.current.value, ...history_search];
         localStorage.setItem("search_history", JSON.stringify(history_search));
       }
@@ -174,6 +147,9 @@ const SearchForm = () => {
         "search_history",
         JSON.stringify([inputEl.current.value])
       );
+      setSearchHistory((prev) => {
+        return [inputEl.current.value, ...prev];
+      });
     }
     navigate(`/search?keyword=${inputEl.current.value}`);
   };
