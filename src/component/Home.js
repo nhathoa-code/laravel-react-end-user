@@ -137,36 +137,6 @@ const Home = () => {
         {!isLoading ? (
           <>
             <div class="container_12">
-              {/* <div id="top_button">
-                <div
-                  style={{
-                    width: "595px",
-                    height: "116px",
-                    marginRight: "10px",
-                  }}
-                  class="grid_6"
-                >
-                  <a href="#" class="button_block best_price">
-                    <img
-                      style={{ width: "100%", height: "100%" }}
-                      src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/right-banner-th5-newww1.jpg"
-                      alt="Banner 1"
-                    />
-                  </a>
-                </div>
-
-                <div style={{ width: "595px", height: "116px" }} class="grid_6">
-                  <a href="#" class="button_block only_natural">
-                    <img
-                      style={{ width: "100%", height: "100%" }}
-                      src="https://cdn2.cellphones.com.vn/690x300,webp,q10/https://dashboard.cellphones.com.vn/storage/m14-right-new00978-399.png"
-                      alt="Banner 3"
-                    />
-                  </a>
-                </div>
-
-                <div class="clear"></div>
-              </div> */}
               {flash_saled_products.length > 0 &&
                 new Date(flash_saled_products[0].end_time) >
                   new Date().getTime() && (
@@ -261,7 +231,6 @@ const Home = () => {
                         />
                       </span>
                     </h2>
-
                     <Swiper
                       slidesPerView={5}
                       grid={{
