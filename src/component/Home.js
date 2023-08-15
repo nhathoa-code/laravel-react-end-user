@@ -47,11 +47,9 @@ const Home = () => {
       ])
       .then(
         axios.spread(async (res1, res2, res3) => {
-          console.log(res1.data);
           setProductsCategories(res1.data);
           setBanners(res2.data);
           setFlashSaledProducts(res3.data);
-          console.log(res3.data);
           setIsLoading(false);
         })
       );
@@ -80,9 +78,11 @@ const Home = () => {
                 {banners.map((b) => {
                   return (
                     <SwiperSlide>
-                      <img
-                        src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${b.image}`}
-                      />
+                      <Link to={`${b.link_to}`}>
+                        <img
+                          src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${b.image}`}
+                        />
+                      </Link>
                     </SwiperSlide>
                   );
                 })}

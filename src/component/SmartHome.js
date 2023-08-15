@@ -46,7 +46,6 @@ const SmartHome = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setCategory(res.data.category);
         let query_filter = false;
         if (res.data.hasOwnProperty("attributes")) {
@@ -221,7 +220,6 @@ const SmartHome = () => {
           products_per_page: products_per_page,
         })
         .then((res) => {
-          console.log(res.data);
           setIsLoadingMore(false);
           setProducts((prev) => {
             return [...prev, ...res.data.filtered_products.data];

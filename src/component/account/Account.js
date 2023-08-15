@@ -54,10 +54,10 @@ const Account = () => {
           >
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
-                <img
+                {/* <img
                   style={{ width: "1.25rem", height: "1.25rem" }}
                   src="/images/account.png"
-                />
+                /> */}
               </ListItemIcon>
               <ListItemText primary="Tài khoản" />
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -100,10 +100,10 @@ const Account = () => {
             >
               <ListItemButton>
                 <ListItemIcon>
-                  <img
+                  {/* <img
                     style={{ width: "1.25rem", height: "1.25rem" }}
                     src="/images/order.png"
-                  />
+                  /> */}
                 </ListItemIcon>
                 <ListItemText
                   style={path === "orders_history" ? { color: "#EE4D2D" } : {}}
@@ -117,10 +117,10 @@ const Account = () => {
             >
               <ListItemButton>
                 <ListItemIcon>
-                  <img
+                  {/* <img
                     style={{ width: "1.1rem", height: "1.1rem" }}
                     src="/images/notification.png"
-                  />
+                  /> */}
                 </ListItemIcon>
                 <ListItemText
                   style={path === "notifications" ? { color: "#EE4D2D" } : {}}
@@ -142,10 +142,10 @@ const Account = () => {
             <Link onClick={() => setPath("reviews")} to={"/account/reviews"}>
               <ListItemButton>
                 <ListItemIcon>
-                  <img
+                  {/* <img
                     style={{ width: "1.25rem", height: "1.25rem" }}
                     src="/images/star.png"
-                  />
+                  /> */}
                 </ListItemIcon>
                 <ListItemText
                   style={path === "reviews" ? { color: "#EE4D2D" } : {}}
@@ -156,10 +156,10 @@ const Account = () => {
             <Link onClick={() => setPath("recent")} to={"/account/recent"}>
               <ListItemButton>
                 <ListItemIcon>
-                  <img
+                  {/* <img
                     style={{ width: "1.25rem", height: "1.25rem" }}
                     src="/images/clock.png"
-                  />
+                  /> */}
                 </ListItemIcon>
                 <ListItemText
                   style={path === "recent" ? { color: "#EE4D2D" } : {}}
@@ -170,10 +170,10 @@ const Account = () => {
             <Link onClick={() => setPath("coupons")} to={"/account/coupons"}>
               <ListItemButton>
                 <ListItemIcon>
-                  <img
+                  {/* <img
                     style={{ width: "1.25rem", height: "1.25rem" }}
                     src="/images/coupons.png"
-                  />
+                  /> */}
                 </ListItemIcon>
                 <ListItemText
                   style={path === "coupons" ? { color: "#EE4D2D" } : {}}

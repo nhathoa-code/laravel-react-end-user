@@ -83,13 +83,10 @@ const Checkout = () => {
   const [popup1, setPopup1] = useState(null);
   const [couponPopup, setCouponPopup] = useState(false);
   const [shippingFee, setShippingFee] = useState(null);
-
-  const { user } = useContext(AuthContext);
   const { shopping_cart, setShoppingCart, chosenCoupon, chosenFreeShip } =
     useContext(AppStoreContext);
   const [isLoading, setIsLoading] = useState(true);
   const [address, setAddress] = useState([]);
-  const [isOrderSuccess, setIsOrderSuccess] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const navigate = useNavigate();
   const [addressId, setAddressId] = useState(null);
@@ -97,6 +94,9 @@ const Checkout = () => {
   const [requireAddress, setRequireAddress] = useState(false);
   const [chooseAddress, setChooseAddress] = useState(false);
   const [addNewAddress, setAddNewAddress] = useState(false);
+  if (shopping_cart.length === 0) {
+    navigate("/cart");
+  }
   useEffect(() => {
     if (Object.keys(chosenAddress).length !== 0) {
       setShippingFee(
@@ -492,13 +492,20 @@ const Checkout = () => {
           document
             .getElementById("main")
             .scrollIntoView({ behavior: "smooth" });
-          setIsOrderSuccess(true);
           setShoppingCart([]);
           navigate(`/account/order/${res.data.order_id}`);
         }
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
+        setPopup1({
+          message: err.response.data.message,
+          btn2: "Trở lại",
+          action: () => {
+            setPopup1(null);
+          },
+        });
       });
   };
 

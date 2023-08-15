@@ -10,15 +10,6 @@ const Notifications = () => {
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const { notifications, setNotifications } = useContext(AppStoreContext);
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_API_ENDPOINT}/notifications`)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setNotifications(res.data);
-  //       setLoading(false);
-  //     });
-  // }, []);
 
   const handleMarkAsRead = (notification_id, status) => {
     if (status === "unread") {

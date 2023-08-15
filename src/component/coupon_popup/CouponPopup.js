@@ -44,17 +44,12 @@ const CouponPopup = ({ setCouponPopup, shopping_cart }) => {
   });
 
   const openCondition = (coupon) => {
-    console.log(coupon);
     setCoupon(coupon);
     handleOpen();
   };
 
   useEffect(() => {
-    // ngay/thang/nam
-    console.log(getDate("05-07-2023") < new Date());
-
     axios.get(`${process.env.REACT_APP_API_ENDPOINT}/coupons`).then((res) => {
-      console.log(res.data);
       setIsLoading(false);
       setCoupons(
         res.data.map((item) => {

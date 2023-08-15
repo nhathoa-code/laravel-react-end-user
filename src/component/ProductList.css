@@ -143,12 +143,12 @@
 }
 
 .product-list-container .cdt-list-tag a:hover {
-  border-color: #9f6c36;
-  color: #9f6c36;
+  border-color: #041e3a;
+  color: #041e3a;
 }
 
 .product-list-container .cdt-list-tag a:hover h2 {
-  color: #9f6c36;
+  color: #041e3a;
 }
 
 .product-list-container .cdt-list-tag a h2 {
@@ -199,7 +199,7 @@
 }
 
 .brand-choosen {
-  border: 1px solid #9f6c36 !important;
+  border: 1px solid #041e3a !important;
 }
 
 /*========== copy breadcrum from fptshop ==========*/

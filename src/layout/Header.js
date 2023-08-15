@@ -74,15 +74,15 @@ const Header = () => {
               alignItems: "center",
             }}
           >
-            {/* <img
-              style={{ width: "80px", height: "auto" }}
-              src="/images/logo.png"
-            /> */}
-            <span
+            <img
+              style={{ width: "150px", height: "auto" }}
+              src="/images/logo-1.png"
+            />
+            {/* <span
               style={{ color: "#fff", fontWeight: "bold", fontSize: "1.5rem" }}
             >
               Eshop
-            </span>
+            </span> */}
           </Link>
         </hgroup>
       </div>

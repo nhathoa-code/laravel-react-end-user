@@ -75,7 +75,6 @@ const NewsLayout = () => {
   const handleLoadMore = (next_page_url) => {
     setIsLoadingMore(true);
     axios.get(next_page_url).then((res) => {
-      console.log(res.data);
       setIsLoadingMore(false);
       setPosts((prev) => {
         return [...prev, ...res.data.data];

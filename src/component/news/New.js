@@ -6,7 +6,6 @@ import "./New.css";
 
 const New = () => {
   const { post } = useContext(AppStoreContext);
-  console.log(post);
   useEffect(() => {
     window.scrollTo(0, 0);
     axios.post(

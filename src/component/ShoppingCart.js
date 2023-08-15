@@ -43,14 +43,10 @@ const ShoppingCart = () => {
         cart_subtotal += item.quantity * (item.price - item.discounted_price);
       }
     });
-    console.log(cart_subtotal);
-
     if (chosenCoupon && chosenCoupon.minimum_spend >= cart_subtotal) {
-      console.log(chosenCoupon.minimum_spend);
       setChosenCoupon(null);
     }
     if (chosenFreeShip && chosenFreeShip.minimum_spend >= cart_subtotal) {
-      console.log(chosenFreeShip.minimum_spend);
       setChosenFreeShip(null);
     }
   }, [shopping_cart]);
@@ -347,7 +343,6 @@ const ShoppingCart = () => {
         });
         localStorage.setItem("back_up_items", JSON.stringify(back_up_items));
         closeModal();
-        console.log(res.data);
       });
   };
 
@@ -562,7 +557,6 @@ const ShoppingCart = () => {
                     <div class="+4E7yJ">Thao Tác</div>
                   </div>
                   {shopping_cart.map((item) => {
-                    console.log(item);
                     if (item.purchase) {
                       subtotal +=
                         item.quantity * (item.price - item.discounted_price);

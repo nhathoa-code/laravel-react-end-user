@@ -8,21 +8,6 @@ const NewsCategory = () => {
   const { chosen_post_category, posts, setPosts, setPost } =
     useContext(AppStoreContext);
   const { slug } = useParams("slug");
-  console.log(slug);
-  // useEffect(() => {
-  //   console.log("invoked");
-  //   axios
-  //     .get(
-  //       `${process.env.REACT_APP_API_ENDPOINT}/posts/post_category/${chosen_post_category.id}`
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setPosts(res.data.data);
-  //       setTotal(res.data.total);
-  //       setPerPage(res.data.per_page);
-  //       setNextPageUrl(res.data.next_page_url);
-  //     });
-  // }, [slug]);
 
   return (
     <>

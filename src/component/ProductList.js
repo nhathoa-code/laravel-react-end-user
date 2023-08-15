@@ -97,7 +97,6 @@ const ProductList = () => {
         if (query_filter) {
           setPreventFilter(false);
         } else {
-          console.log(res.data.products.data);
           setProducts(res.data.products.data);
           setTotal(res.data.products.total);
           setPerPage(res.data.products.per_page);
@@ -145,8 +144,6 @@ const ProductList = () => {
       })
       .then((res) => {
         setIsFiltering(false);
-
-        console.log(res.data.filtered_products.data);
         setProducts(res.data.filtered_products.data);
         setTotal(res.data.filtered_products.total);
         setPerPage(res.data.filtered_products.per_page);

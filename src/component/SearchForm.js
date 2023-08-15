@@ -91,7 +91,6 @@ const SearchForm = () => {
     );
     for (let i = 0; i < trending_boxes.length; i++) {
       trending_boxes[i].addEventListener("click", function () {
-        console.log("hello");
         overLayEl.current.style.display = "none";
         if (suggestEl.current) {
           suggestEl.current.style.display = "none";

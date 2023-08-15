@@ -95,7 +95,6 @@ const OrderHistory = () => {
               },
             })
             .then((res) => {
-              console.log(res.data);
               setOrders((prev) => {
                 return { ...prev, 4: res.data };
               });
@@ -195,7 +194,6 @@ const OrderHistory = () => {
   };
 
   const handleReBuy = (order_details) => {
-    console.log(order_details);
     const post_reqs = [];
     order_details.forEach((item) => {
       let data = {
@@ -205,7 +203,7 @@ const OrderHistory = () => {
       if (item.color_id) {
         data.color_id = item.color_id;
       }
-      if (item.version != "") {
+      if (item.version) {
         data.version = item.version;
       }
       post_reqs.push(
@@ -471,9 +469,11 @@ const OrderHistory = () => {
                                             </div>
                                           </div>
                                           <div>
-                                            <div class="vb0b-P">
-                                              Phân loại hàng: {item.color}
-                                            </div>
+                                            {item.color && (
+                                              <div class="vb0b-P">
+                                                Phân loại hàng: {item.color}
+                                              </div>
+                                            )}
                                             <div class="_3F1-5M">
                                               x{item.quantity}
                                             </div>

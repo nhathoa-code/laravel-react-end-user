@@ -550,15 +550,14 @@ svg:not(:root) {
   .block-box-price
   .box-info__box-price
   .product__price--percent {
-  background: url("") 50% no-repeat;
   left: 10px;
   position: absolute;
   top: 10px;
-  padding: 1px 2px;
+  padding: 3px 6px;
 }
 
 .block-box-price .box-info__box-price .product__price--percent {
-  background-color: #9f6c36 !important;
+  background-color: #041e3a !important;
   border-radius: 3px !important;
 }
 

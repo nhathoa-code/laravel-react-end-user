@@ -27,7 +27,6 @@ const SearchResult = () => {
           setSearchedProducts(res.data.data);
           setTotal(res.data.total);
           setNextPageUrl(res.data.next_page_url);
-          console.log(res.data);
         });
     } else {
       setLoading(false);

@@ -9,7 +9,6 @@ const Recent = () => {
     ? cookies.recently_viewed_products
     : [];
   const averageStar = 0;
-  console.log(recently_viewed_products);
   return (
     <>
       {recently_viewed_products.length > 0 ? (
