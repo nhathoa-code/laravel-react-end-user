@@ -9,9 +9,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import Spinner from "./spinner/Spinner";
 import { useCookies } from "react-cookie";
 
-// Import reactjs modal
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -118,7 +115,9 @@ const Product = ({ props, ref }) => {
               name: product.name,
               slug: product.slug,
               price: product.price,
-              discounted_price: product.discounted_price,
+              discounted_price: product.flash_sale
+                ? product.flash_sale_discounted_price
+                : product.discounted_price,
               isUpdate: false,
               purchase: false,
             };
@@ -365,11 +364,71 @@ const Product = ({ props, ref }) => {
                 <div class="IZIVH+">
                   <div class="nTpKes">{product.reviews.length} đánh giá</div>
                 </div>
-
+                <div
+                  style={{
+                    flex: "1",
+                    textAlign: "right",
+                  }}
+                >
+                  <Link
+                    onClick={handleCompare}
+                    to={`/compare/${product.slug}`}
+                    class="re-link margin-left-2x"
+                  >
+                    <span class="ic-plus margin-right-sm"></span>So sánh
+                  </Link>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <div className="product-detail">
+              <div className="product-detail-left gallery-product-detail">
+                <Swiper
+                  style={{
+                    "--swiper-navigation-color": "#fff",
+                    "--swiper-pagination-color": "#fff",
+                  }}
+                  spaceBetween={10}
+                  navigation={true}
+                  thumbs={{ swiper: thumbsSwiper }}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper2 gallery-slide gallery-top swiper-container"
+                >
+                  {gallery.map((item) => {
+                    return (
+                      <SwiperSlide key={item}>
+                        <img
+                          src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${item}`}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+                <Swiper
+                  onSwiper={setThumbsSwiper}
+                  spaceBetween={10}
+                  slidesPerView={12}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper thumbnail-slide swiper-container"
+                >
+                  {gallery.map((item) => {
+                    return (
+                      <SwiperSlide key={item}>
+                        <img
+                          src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${item}`}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+              <div className="product-detail-right">
                 {product.flash_sale && (
-                  <div>
+                  <div style={{ marginBottom: "10px" }}>
                     <i
-                      style={{ margin: "0 10px" }}
+                      style={{ marginLeft: "0px", marginRight: "10px" }}
                       class="fa fa-bolt"
                       aria-hidden="true"
                     ></i>
@@ -458,83 +517,27 @@ const Product = ({ props, ref }) => {
                         setProduct((prev) => {
                           return {
                             ...prev,
-                            discounted_price: product.discounted_price_backup,
+                            flash_sale: false,
+                            flash_sale_discounted_price: null,
                           };
                         });
                       }}
                     />
                   </div>
                 )}
-
-                <div
-                  style={{
-                    flex: "1",
-                    textAlign: "right",
-                  }}
-                >
-                  <Link
-                    onClick={handleCompare}
-                    to={`/compare/${product.slug}`}
-                    class="re-link margin-left-2x"
-                  >
-                    <span class="ic-plus margin-right-sm"></span>So sánh
-                  </Link>
-                </div>
-              </div>
-              <hr />
-            </div>
-            <div className="product-detail">
-              <div className="product-detail-left gallery-product-detail">
-                <Swiper
-                  style={{
-                    "--swiper-navigation-color": "#fff",
-                    "--swiper-pagination-color": "#fff",
-                  }}
-                  spaceBetween={10}
-                  navigation={true}
-                  thumbs={{ swiper: thumbsSwiper }}
-                  modules={[FreeMode, Navigation, Thumbs]}
-                  className="mySwiper2 gallery-slide gallery-top swiper-container"
-                >
-                  {gallery.map((item) => {
-                    return (
-                      <SwiperSlide key={item}>
-                        <img
-                          src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${item}`}
-                        />
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-                <Swiper
-                  onSwiper={setThumbsSwiper}
-                  spaceBetween={10}
-                  slidesPerView={12}
-                  freeMode={true}
-                  watchSlidesProgress={true}
-                  modules={[FreeMode, Navigation, Thumbs]}
-                  className="mySwiper thumbnail-slide swiper-container"
-                >
-                  {gallery.map((item) => {
-                    return (
-                      <SwiperSlide key={item}>
-                        <img
-                          src={`${process.env.REACT_APP_SERVER_ROOT_URL}/${item}`}
-                        />
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-              </div>
-              <div className="product-detail-right">
                 <div className="block-box-price">
                   <div class="box-info__box-price">
-                    {product.discounted_price > 0 ? (
+                    {product.discounted_price > 0 || product.flash_sale ? (
                       <>
                         <p class="product__price--show">
                           {new Intl.NumberFormat({
                             style: "currency",
-                          }).format(product.price - product.discounted_price)}
+                          }).format(
+                            product.price -
+                              (product.flash_sale
+                                ? product.flash_sale_discounted_price
+                                : product.discounted_price)
+                          )}
                           &nbsp;₫
                         </p>
                         <p class="product__price--through">

@@ -46,8 +46,13 @@
 
 .product-text {
   padding: 25px 20px;
+  padding-top: 0;
   height: 652px;
   overflow: hidden;
+}
+
+figure.image {
+  margin: 15px 0;
 }
 
 .product-text p {

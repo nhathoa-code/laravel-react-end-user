@@ -30,10 +30,6 @@
 
 .product-list-container #list-product {
   position: relative;
-  /* display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  flex-grow: 1; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
@@ -41,21 +37,9 @@
   row-gap: 15px;
 }
 
-/* .product-list-container #list-product .product-info-container {
-  width: 32%;
-  height: fit-content;
-  margin-bottom: 15px;
-} */
-
-/* .product-list-container
-  #list-product
-  .product-info-container:not(:nth-of-type(3n)) {
-  margin-right: 2%;
-} */
-
 /*========== copy headbox from fptshop =========*/
 .product-list-container .m-b-30 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .product-list-container .card {

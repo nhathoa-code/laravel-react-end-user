@@ -40,3 +40,64 @@ code {
   font-weight: 700;
   color: rgb(255, 255, 255);
 }
+
+.product-info-container .product__flash--sale {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  color: #041e3a;
+}
+
+/* copy sort bar from shopee */
+.shopee-sort-bar {
+  font-weight: 400;
+  background: #fff;
+  padding: 0.8125rem 1.25rem;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 3px 0 #dee2e6;
+  margin-bottom: 20px;
+}
+
+.shopee-sort-bar__label {
+  color: #555;
+  margin: 0 0.3125rem 0 0;
+}
+
+.shopee-sort-by-options {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.shopee-sort-by-options__option--selected.shopee-sort-by-options__option {
+  color: #fff;
+  background: #041e3a;
+}
+
+.shopee-sort-by-options .select-with-status__holder,
+.shopee-sort-by-options__option {
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.02);
+  height: 2.125rem;
+  line-height: 2.125rem;
+  border-radius: 2px;
+  border: 0;
+}
+
+.shopee-sort-by-options__option {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex: 0 0 5.625rem;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  padding: 0 0.9375rem;
+  /* background: #fff; */
+  white-space: nowrap;
+  margin-left: 0.625rem;
+  box-sizing: border-box;
+}

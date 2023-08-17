@@ -13,6 +13,7 @@ import "./ProductList.css";
 const ProductList = () => {
   const [preventFilter, setPreventFilter] = useState(true);
   const { slug } = useParams("slug");
+  const [sort_by, setSortBy] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isFiltering, setIsFiltering] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -33,6 +34,7 @@ const ProductList = () => {
     window.scrollTo(0, 0);
     setCategoryAttributes([]);
     setProducts([]);
+    setSortBy(0);
     setIsLoading(true);
     axios
       .get(
@@ -141,6 +143,7 @@ const ProductList = () => {
         productIds: JSON.stringify(productIds),
         choosen_brands: choosen_brands,
         products_per_page: products_per_page,
+        sort_by: sort_by,
       })
       .then((res) => {
         setIsFiltering(false);
@@ -173,7 +176,7 @@ const ProductList = () => {
       }
     });
     navigate(`${new_state.length > 0 ? "?" + new_state.substring(1) : ""}`);
-  }, [category_attributes, brands]);
+  }, [category_attributes, brands, sort_by]);
 
   const handleLoadMore = (next_page_url) => {
     setIsLoadingMore(true);
@@ -218,6 +221,7 @@ const ProductList = () => {
           productIds: JSON.stringify(productIds),
           choosen_brands: choosen_brands,
           products_per_page: products_per_page,
+          sort_by: sort_by,
         })
         .then((res) => {
           setIsLoadingMore(false);
@@ -359,7 +363,10 @@ const ProductList = () => {
               </aside>
             </div>
             <div style={{ flex: "1" }}>
-              <div class="card m-b-30 fpheadbox">
+              <div
+                class="card m-b-30 fpheadbox"
+                style={products.length > 0 ? { marginBottom: "10px" } : {}}
+              >
                 <div class="card-header">
                   <div class="cdt-head">
                     <h1 class="cdt-head__title">Tìm thấy: </h1>
@@ -457,6 +464,99 @@ const ProductList = () => {
                   </>
                 )}
               </div>
+              {products.length > 0 && (
+                <div class="shopee-sort-bar">
+                  <span class="shopee-sort-bar__label">Sắp xếp theo</span>
+                  <div class="shopee-sort-by-options">
+                    <div
+                      onClick={
+                        sort_by !== 0
+                          ? () => {
+                              setSortBy(0);
+                              setPreventFilter(false);
+                            }
+                          : null
+                      }
+                      class={`shopee-sort-by-options__option ${
+                        sort_by === 0
+                          ? "shopee-sort-by-options__option--selected"
+                          : ""
+                      }`}
+                    >
+                      Mới nhất
+                    </div>
+                    <div
+                      onClick={
+                        sort_by !== 1
+                          ? () => {
+                              setSortBy(1);
+                              setPreventFilter(false);
+                            }
+                          : null
+                      }
+                      class={`shopee-sort-by-options__option ${
+                        sort_by === 1
+                          ? "shopee-sort-by-options__option--selected"
+                          : ""
+                      }`}
+                    >
+                      Bán chạy
+                    </div>
+                    <div
+                      onClick={
+                        sort_by !== 2
+                          ? () => {
+                              setSortBy(2);
+                              setPreventFilter(false);
+                            }
+                          : null
+                      }
+                      class={`shopee-sort-by-options__option ${
+                        sort_by === 2
+                          ? "shopee-sort-by-options__option--selected"
+                          : ""
+                      }`}
+                    >
+                      % Giảm giá
+                    </div>
+                    <div
+                      onClick={
+                        sort_by !== 3
+                          ? () => {
+                              setSortBy(3);
+                              setPreventFilter(false);
+                            }
+                          : null
+                      }
+                      class={`shopee-sort-by-options__option ${
+                        sort_by === 3
+                          ? "shopee-sort-by-options__option--selected"
+                          : ""
+                      }`}
+                    >
+                      Giá thấp đến cao
+                    </div>
+                    <div
+                      onClick={
+                        sort_by !== 4
+                          ? () => {
+                              setSortBy(4);
+                              setPreventFilter(false);
+                            }
+                          : null
+                      }
+                      class={`shopee-sort-by-options__option ${
+                        sort_by === 4
+                          ? "shopee-sort-by-options__option--selected"
+                          : ""
+                      }`}
+                    >
+                      Giá cao đến thấp
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div id="list-product">
                 {isFiltering ? (
                   <Loader />
@@ -492,13 +592,17 @@ const ProductList = () => {
                                 :
                               </span>
                               <div class="box-info__box-price">
-                                {item.discounted_price > 0 ? (
+                                {item.discounted_price > 0 ||
+                                item.flash_sale ? (
                                   <>
                                     <p class="product__price--show">
                                       {new Intl.NumberFormat({
                                         style: "currency",
                                       }).format(
-                                        item.price - item.discounted_price
+                                        item.price -
+                                          (item.flash_sale
+                                            ? item.flash_sale_discounted_price
+                                            : item.discounted_price)
                                       )}
                                       &nbsp;₫
                                     </p>{" "}
@@ -512,7 +616,10 @@ const ProductList = () => {
                                       <p class="product__price--percent-detail">
                                         Giảm&nbsp;
                                         {Math.round(
-                                          (item.discounted_price / item.price) *
+                                          ((item.flash_sale
+                                            ? item.flash_sale_discounted_price
+                                            : item.discounted_price) /
+                                            item.price) *
                                             100
                                         )}
                                         %
@@ -529,14 +636,31 @@ const ProductList = () => {
                                 )}
                               </div>
                             </div>
-                            {item.discounted_price > 0 && (
+                            {item.flash_sale && (
+                              <div class="product__flash--sale">
+                                <i
+                                  class="fa fa-bolt"
+                                  aria-hidden="true"
+                                  style={{
+                                    margin: "0px 10px",
+                                    fontSize: "20px",
+                                  }}
+                                ></i>
+                              </div>
+                            )}
+
+                            {(item.discounted_price > 0 || item.flash_sale) && (
                               <div class="css-14q2k9d">
                                 <div class="css-zb7zul">
                                   <div class="css-1bqeu8f">TIẾT KIỆM</div>
                                   <div class="css-1rdv2qd">
                                     {new Intl.NumberFormat({
                                       style: "currency",
-                                    }).format(item.discounted_price)}
+                                    }).format(
+                                      item.flash_sale
+                                        ? item.flash_sale_discounted_price
+                                        : item.discounted_price
+                                    )}
                                     &nbsp;₫
                                   </div>
                                 </div>

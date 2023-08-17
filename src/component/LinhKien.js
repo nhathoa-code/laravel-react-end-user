@@ -12,6 +12,7 @@ import Loader from "./loader/Loader";
 
 const LinhKien = () => {
   const { slug } = useParams("slug");
+  const [sort_by, setSortBy] = useState(0);
   const [preventFilter, setPreventFilter] = useState(true);
   const [searchParams] = useSearchParams();
   const { categories } = useContext(AppStoreContext);
@@ -34,6 +35,7 @@ const LinhKien = () => {
     setCategoryAttributes([]);
     setProducts([]);
     setIsLoading(true);
+    setSortBy(0);
     axios
       .get(
         `${process.env.REACT_APP_API_ENDPOINT}/category/attributes/0/${
@@ -141,6 +143,7 @@ const LinhKien = () => {
         productIds: JSON.stringify(productIds),
         choosen_brands: choosen_brands,
         products_per_page: products_per_page,
+        sort_by: sort_by,
       })
       .then((res) => {
         setIsLoading(false);
@@ -173,7 +176,7 @@ const LinhKien = () => {
       }
     });
     navigate(`${new_state.length > 0 ? "?" + new_state.substring(1) : ""}`);
-  }, [...category_attributes.map((item) => item.values), brands]);
+  }, [...category_attributes.map((item) => item.values), brands, sort_by]);
 
   const handleLoadMore = (next_page_url) => {
     setIsLoadingMore(true);
@@ -218,6 +221,7 @@ const LinhKien = () => {
           productIds: JSON.stringify(productIds),
           choosen_brands: choosen_brands,
           products_per_page: products_per_page,
+          sort_by: sort_by,
         })
         .then((res) => {
           setIsLoadingMore(false);
@@ -382,7 +386,10 @@ const LinhKien = () => {
             </div>
           </div>
         </div>
-        <div class="card m-b-30 fpheadbox">
+        <div
+          class="card m-b-30 fpheadbox"
+          style={products.length > 0 ? { marginBottom: "10px" } : {}}
+        >
           <div class="card-header">
             <div class="cdt-head">
               <h1 class="cdt-head__title">Tìm thấy: </h1>
@@ -563,13 +570,99 @@ const LinhKien = () => {
               })}
             </div>
           )}
-          {/* <a
-                  href="/may-tinh-xach-tay/su-dung-tam-nen-ips?sort=ban-chay-nhat"
-                  class="fs-ctf-fidelall"
-                >
-                  Xóa tất cả <i class="icon-cancel"></i>
-                </a> */}
         </div>
+        {products.length > 0 && (
+          <div class="shopee-sort-bar">
+            <span class="shopee-sort-bar__label">Sắp xếp theo</span>
+            <div class="shopee-sort-by-options">
+              <div
+                onClick={
+                  sort_by !== 0
+                    ? () => {
+                        setSortBy(0);
+                        setPreventFilter(false);
+                      }
+                    : null
+                }
+                class={`shopee-sort-by-options__option ${
+                  sort_by === 0
+                    ? "shopee-sort-by-options__option--selected"
+                    : ""
+                }`}
+              >
+                Mới nhất
+              </div>
+              <div
+                onClick={
+                  sort_by !== 1
+                    ? () => {
+                        setSortBy(1);
+                        setPreventFilter(false);
+                      }
+                    : null
+                }
+                class={`shopee-sort-by-options__option ${
+                  sort_by === 1
+                    ? "shopee-sort-by-options__option--selected"
+                    : ""
+                }`}
+              >
+                Bán chạy
+              </div>
+              <div
+                onClick={
+                  sort_by !== 2
+                    ? () => {
+                        setSortBy(2);
+                        setPreventFilter(false);
+                      }
+                    : null
+                }
+                class={`shopee-sort-by-options__option ${
+                  sort_by === 2
+                    ? "shopee-sort-by-options__option--selected"
+                    : ""
+                }`}
+              >
+                % Giảm giá
+              </div>
+              <div
+                onClick={
+                  sort_by !== 3
+                    ? () => {
+                        setSortBy(3);
+                        setPreventFilter(false);
+                      }
+                    : null
+                }
+                class={`shopee-sort-by-options__option ${
+                  sort_by === 3
+                    ? "shopee-sort-by-options__option--selected"
+                    : ""
+                }`}
+              >
+                Giá thấp đến cao
+              </div>
+              <div
+                onClick={
+                  sort_by !== 4
+                    ? () => {
+                        setSortBy(4);
+                        setPreventFilter(false);
+                      }
+                    : null
+                }
+                class={`shopee-sort-by-options__option ${
+                  sort_by === 4
+                    ? "shopee-sort-by-options__option--selected"
+                    : ""
+                }`}
+              >
+                Giá cao đến thấp
+              </div>
+            </div>
+          </div>
+        )}
         <div id="accessory-list">
           {isLoading ? (
             <Loader />
@@ -606,13 +699,16 @@ const LinhKien = () => {
                               :
                             </span>
                             <div class="box-info__box-price">
-                              {item.discounted_price > 0 ? (
+                              {item.discounted_price > 0 || item.flash_sale ? (
                                 <>
                                   <p class="product__price--show">
                                     {new Intl.NumberFormat({
                                       style: "currency",
                                     }).format(
-                                      item.price - item.discounted_price
+                                      item.price -
+                                        (item.flash_sale
+                                          ? item.flash_sale_discounted_price
+                                          : item.discounted_price)
                                     )}
                                     &nbsp;₫
                                   </p>{" "}
@@ -626,7 +722,10 @@ const LinhKien = () => {
                                     <p class="product__price--percent-detail">
                                       Giảm&nbsp;
                                       {Math.round(
-                                        (item.discounted_price / item.price) *
+                                        ((item.flash_sale
+                                          ? item.flash_sale_discounted_price
+                                          : item.discounted_price) /
+                                          item.price) *
                                           100
                                       )}
                                       %
@@ -643,14 +742,30 @@ const LinhKien = () => {
                               )}
                             </div>
                           </div>
-                          {item.discounted_price > 0 && (
+                          {item.flash_sale && (
+                            <div class="product__flash--sale">
+                              <i
+                                class="fa fa-bolt"
+                                aria-hidden="true"
+                                style={{
+                                  margin: "0px 10px",
+                                  fontSize: "20px",
+                                }}
+                              ></i>
+                            </div>
+                          )}
+                          {(item.discounted_price > 0 || item.flash_sale) && (
                             <div class="css-14q2k9d">
                               <div class="css-zb7zul">
                                 <div class="css-1bqeu8f">TIẾT KIỆM</div>
                                 <div class="css-1rdv2qd">
                                   {new Intl.NumberFormat({
                                     style: "currency",
-                                  }).format(item.discounted_price)}
+                                  }).format(
+                                    item.flash_sale
+                                      ? item.flash_sale_discounted_price
+                                      : item.discounted_price
+                                  )}
                                   &nbsp;₫
                                 </div>
                               </div>

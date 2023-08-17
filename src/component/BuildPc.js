@@ -105,23 +105,66 @@ const BuildPc = () => {
           ).toString(CryptoJS.enc.Utf8)
         );
       }
-      setTypeOfDevices(() => {
-        return [
-          ...categories[6].children[1].children,
-          categories[6].children[2],
-          categories[4].children[6],
-          categories[4].children[4],
-        ].map((item) => {
-          const type_device = build_pc.find(
-            (bpc_item) => bpc_item.type_id === item.id
-          );
-          if (type_device) {
-            return { category: item, device: type_device.device };
-          } else {
+      if (build_pc.length > 0) {
+        setIsLoading(true);
+        axios
+          .get(
+            `${process.env.REACT_APP_API_ENDPOINT}/products/fetch_products_info`,
+            {
+              params: {
+                product_ids: build_pc.map((item) => item.device.product_id),
+              },
+            }
+          )
+          .then((res) => {
+            setIsLoading(false);
+            setTypeOfDevices(() => {
+              return [
+                ...categories[6].children[1].children,
+                categories[6].children[2],
+                categories[4].children[6],
+                categories[4].children[4],
+              ].map((item) => {
+                const type_device = build_pc.find(
+                  (bpc_item) => bpc_item.type_id === item.id
+                );
+
+                if (type_device) {
+                  const device = res.data.find(
+                    (item) => item.id == type_device.device.product_id
+                  );
+                  return {
+                    category: item,
+                    device: {
+                      id: device.id,
+                      name: device.name,
+                      image: device.image,
+                      quantity: type_device.device.quantity,
+                      price: device.price,
+                      discounted_price: device.flash_sale
+                        ? device.flash_sale_discounted_price
+                        : device.discounted_price,
+                      slug: device.slug,
+                    },
+                  };
+                } else {
+                  return { category: item, device: null };
+                }
+              });
+            });
+          });
+      } else {
+        setTypeOfDevices(() => {
+          return [
+            ...categories[6].children[1].children,
+            categories[6].children[2],
+            categories[4].children[6],
+            categories[4].children[4],
+          ].map((item) => {
             return { category: item, device: null };
-          }
+          });
         });
-      });
+      }
     }
   }, [categories]);
 
@@ -331,7 +374,9 @@ const BuildPc = () => {
         image: device.image,
         quantity: 1,
         price: device.price,
-        discounted_price: device.discounted_price,
+        discounted_price: device.flash_sale
+          ? device.flash_sale_discounted_price
+          : device.discounted_price,
         slug: device.slug,
       };
       return [...prev];
@@ -342,13 +387,8 @@ const BuildPc = () => {
         {
           type_id: type_id,
           device: {
-            id: device.id,
-            name: device.name,
-            image: device.image,
+            product_id: device.id,
             quantity: 1,
-            price: device.price,
-            discounted_price: device.discounted_price,
-            slug: device.slug,
           },
         },
       ];
@@ -367,25 +407,15 @@ const BuildPc = () => {
       const type_device = build_pc.find((item) => item.type_id === type_id);
       if (type_device) {
         type_device.device = {
-          id: device.id,
-          name: device.name,
-          image: device.image,
+          product_id: device.id,
           quantity: 1,
-          price: device.price,
-          discounted_price: device.discounted_price,
-          slug: device.slug,
         };
       } else {
         build_pc.push({
           type_id: type_id,
           device: {
-            id: device.id,
-            name: device.name,
-            image: device.image,
+            product_id: device.id,
             quantity: 1,
-            price: device.price,
-            discounted_price: device.discounted_price,
-            slug: device.slug,
           },
         });
       }
@@ -514,10 +544,6 @@ const BuildPc = () => {
       .forEach((item) => {
         let data = {
           product_id: item.device.id,
-          name: item.device.name,
-          slug: item.device.slug,
-          price: item.device.price,
-          discounted_price: item.device.discounted_price,
           image: item.device.image,
         };
         post_reqs.push(
@@ -541,8 +567,15 @@ const BuildPc = () => {
           responses.forEach((res) => {
             setShoppingCart((prev) => {
               if (res.data.new) {
+                const device = type_of_devices.find(
+                  (item) => item.device && item.device.id == res.data.product.id
+                ).device;
                 let item = {
                   ...res.data.cart_item,
+                  name: device.name,
+                  slug: device.slug,
+                  price: device.price,
+                  discounted_price: device.discounted_price,
                   isUpdate: false,
                   purchase: false,
                 };
@@ -580,7 +613,7 @@ const BuildPc = () => {
           }
         })
       )
-      .catch((err) => {
+      .catch(() => {
         setIsAddingToCart(false);
       });
   };
@@ -771,13 +804,17 @@ const BuildPc = () => {
                                     :
                                   </span>
                                   <div class="box-info__box-price">
-                                    {item.discounted_price > 0 ? (
+                                    {item.discounted_price > 0 ||
+                                    item.flash_sale ? (
                                       <>
                                         <p class="product__price--show">
                                           {new Intl.NumberFormat({
                                             style: "currency",
                                           }).format(
-                                            item.price - item.discounted_price
+                                            item.price -
+                                              (item.flash_sale
+                                                ? item.flash_sale_discounted_price
+                                                : item.discounted_price)
                                           )}
                                           &nbsp;₫
                                         </p>{" "}
@@ -791,7 +828,9 @@ const BuildPc = () => {
                                           <p class="product__price--percent-detail">
                                             Giảm&nbsp;
                                             {Math.round(
-                                              (item.discounted_price /
+                                              ((item.flash_sale
+                                                ? item.flash_sale_discounted_price
+                                                : item.discounted_price) /
                                                 item.price) *
                                                 100
                                             )}
@@ -809,7 +848,40 @@ const BuildPc = () => {
                                     )}
                                   </div>
                                 </div>
+                                {item.flash_sale && (
+                                  <div class="product__flash--sale">
+                                    <i
+                                      class="fa fa-bolt"
+                                      aria-hidden="true"
+                                      style={{
+                                        margin: "0px 10px",
+                                        fontSize: "20px",
+                                      }}
+                                    ></i>
+                                  </div>
+                                )}
 
+                                {(item.discounted_price > 0 ||
+                                  item.flash_sale) && (
+                                  <div
+                                    class="css-14q2k9d"
+                                    style={{ marginBottom: "5px" }}
+                                  >
+                                    <div class="css-zb7zul">
+                                      <div class="css-1bqeu8f">TIẾT KIỆM</div>
+                                      <div class="css-1rdv2qd">
+                                        {new Intl.NumberFormat({
+                                          style: "currency",
+                                        }).format(
+                                          item.flash_sale
+                                            ? item.flash_sale_discounted_price
+                                            : item.discounted_price
+                                        )}
+                                        &nbsp;₫
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
                                 <div
                                   class="product__promotions"
                                   style={{ display: "none" }}

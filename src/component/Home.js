@@ -477,13 +477,17 @@ const Home = () => {
                                       :
                                     </span>
                                     <div class="box-info__box-price">
-                                      {item.discounted_price > 0 ? (
+                                      {item.discounted_price > 0 ||
+                                      item.flash_sale ? (
                                         <>
                                           <p class="product__price--show">
                                             {new Intl.NumberFormat({
                                               style: "currency",
                                             }).format(
-                                              item.price - item.discounted_price
+                                              item.price -
+                                                (item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price)
                                             )}
                                             &nbsp;₫
                                           </p>{" "}
@@ -497,7 +501,9 @@ const Home = () => {
                                             <p class="product__price--percent-detail">
                                               Giảm&nbsp;
                                               {Math.round(
-                                                (item.discounted_price /
+                                                ((item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price) /
                                                   item.price) *
                                                   100
                                               )}
@@ -515,14 +521,31 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  {item.discounted_price > 0 && (
+                                  {item.flash_sale && (
+                                    <div class="product__flash--sale">
+                                      <i
+                                        class="fa fa-bolt"
+                                        aria-hidden="true"
+                                        style={{
+                                          margin: "0px 10px",
+                                          fontSize: "20px",
+                                        }}
+                                      ></i>
+                                    </div>
+                                  )}
+                                  {(item.discounted_price > 0 ||
+                                    item.flash_sale) && (
                                     <div class="css-14q2k9d">
                                       <div class="css-zb7zul">
                                         <div class="css-1bqeu8f">TIẾT KIỆM</div>
                                         <div class="css-1rdv2qd">
                                           {new Intl.NumberFormat({
                                             style: "currency",
-                                          }).format(item.discounted_price)}
+                                          }).format(
+                                            item.flash_sale
+                                              ? item.flash_sale_discounted_price
+                                              : item.discounted_price
+                                          )}
                                           &nbsp;₫
                                         </div>
                                       </div>
@@ -670,13 +693,17 @@ const Home = () => {
                                       :
                                     </span>
                                     <div class="box-info__box-price">
-                                      {item.discounted_price > 0 ? (
+                                      {item.discounted_price > 0 ||
+                                      item.flash_sale ? (
                                         <>
                                           <p class="product__price--show">
                                             {new Intl.NumberFormat({
                                               style: "currency",
                                             }).format(
-                                              item.price - item.discounted_price
+                                              item.price -
+                                                (item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price)
                                             )}
                                             &nbsp;₫
                                           </p>{" "}
@@ -690,7 +717,9 @@ const Home = () => {
                                             <p class="product__price--percent-detail">
                                               Giảm&nbsp;
                                               {Math.round(
-                                                (item.discounted_price /
+                                                ((item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price) /
                                                   item.price) *
                                                   100
                                               )}
@@ -708,14 +737,31 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  {item.discounted_price > 0 && (
+                                  {item.flash_sale && (
+                                    <div class="product__flash--sale">
+                                      <i
+                                        class="fa fa-bolt"
+                                        aria-hidden="true"
+                                        style={{
+                                          margin: "0px 10px",
+                                          fontSize: "20px",
+                                        }}
+                                      ></i>
+                                    </div>
+                                  )}
+                                  {(item.discounted_price > 0 ||
+                                    item.flash_sale) && (
                                     <div class="css-14q2k9d">
                                       <div class="css-zb7zul">
                                         <div class="css-1bqeu8f">TIẾT KIỆM</div>
                                         <div class="css-1rdv2qd">
                                           {new Intl.NumberFormat({
                                             style: "currency",
-                                          }).format(item.discounted_price)}
+                                          }).format(
+                                            item.flash_sale
+                                              ? item.flash_sale_discounted_price
+                                              : item.discounted_price
+                                          )}
                                           &nbsp;₫
                                         </div>
                                       </div>
@@ -864,13 +910,17 @@ const Home = () => {
                                       :
                                     </span>
                                     <div class="box-info__box-price">
-                                      {item.discounted_price > 0 ? (
+                                      {item.discounted_price > 0 ||
+                                      item.flash_sale ? (
                                         <>
                                           <p class="product__price--show">
                                             {new Intl.NumberFormat({
                                               style: "currency",
                                             }).format(
-                                              item.price - item.discounted_price
+                                              item.price -
+                                                (item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price)
                                             )}
                                             &nbsp;₫
                                           </p>{" "}
@@ -884,7 +934,9 @@ const Home = () => {
                                             <p class="product__price--percent-detail">
                                               Giảm&nbsp;
                                               {Math.round(
-                                                (item.discounted_price /
+                                                ((item.flash_sale
+                                                  ? item.flash_sale_discounted_price
+                                                  : item.discounted_price) /
                                                   item.price) *
                                                   100
                                               )}
@@ -902,14 +954,31 @@ const Home = () => {
                                       )}
                                     </div>
                                   </div>
-                                  {item.discounted_price > 0 && (
+                                  {item.flash_sale && (
+                                    <div class="product__flash--sale">
+                                      <i
+                                        class="fa fa-bolt"
+                                        aria-hidden="true"
+                                        style={{
+                                          margin: "0px 10px",
+                                          fontSize: "20px",
+                                        }}
+                                      ></i>
+                                    </div>
+                                  )}
+                                  {(item.discounted_price > 0 ||
+                                    item.flash_sale) > 0 && (
                                     <div class="css-14q2k9d">
                                       <div class="css-zb7zul">
                                         <div class="css-1bqeu8f">TIẾT KIỆM</div>
                                         <div class="css-1rdv2qd">
                                           {new Intl.NumberFormat({
                                             style: "currency",
-                                          }).format(item.discounted_price)}
+                                          }).format(
+                                            item.flash_sale
+                                              ? item.flash_sale_discounted_price
+                                              : item.discounted_price
+                                          )}
                                           &nbsp;₫
                                         </div>
                                       </div>
